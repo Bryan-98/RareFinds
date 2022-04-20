@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">Rare_Finds</string>
+    <!--Category Strings-->
+    <string name="add_category">Add_Category</string>
+    <string name="input_category_name">Enter Category Name</string>
+    <string name="category_name">Name</string>
+    <string name="input_category_description">Enter Description</string>
+    <string name="category_description">Description</string>
+    <string name="add_category_name">Add</string>
+    <string name="cancel_category_name">Cancel</string>
+    <string name="image_category">Category Image</string>
+
+</resources>
