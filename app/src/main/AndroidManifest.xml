@@ -14,21 +14,22 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Rare_Finds">
         <activity
-            android:name=".LibraryActivity"
+            android:name="edu.practice.utils.shared.com.example.rare_finds.activities.LibraryActivity"
             android:exported="false" />
         <activity
-            android:name=".CollectionActivity"
+            android:name="edu.practice.utils.shared.com.example.rare_finds.activities.CollectionActivity"
             android:exported="false" />
         <activity
-            android:name=".AddingCategory"
+            android:name="edu.practice.utils.shared.com.example.rare_finds.controllers.AddingCategory"
             android:exported="false" />
         <activity
-            android:name=".MainActivity"
+            android:name="edu.practice.utils.shared.com.example.rare_finds.activities.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+
         </activity>
     </application>
 

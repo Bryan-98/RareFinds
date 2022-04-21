@@ -1,4 +1,4 @@
-package com.example.rare_finds
+package edu.practice.utils.shared.com.example.rare_finds.sqlconnection
 
 import android.os.StrictMode
 import android.util.Log

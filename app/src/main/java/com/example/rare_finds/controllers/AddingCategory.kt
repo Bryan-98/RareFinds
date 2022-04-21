@@ -1,10 +1,16 @@
-package com.example.rare_finds
+package edu.practice.utils.shared.com.example.rare_finds.controllers
 
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.EditText
 import androidx.appcompat.app.AppCompatActivity
+import com.example.rare_finds.R
+import edu.practice.utils.shared.com.example.rare_finds.activities.CollectionActivity
+import edu.practice.utils.shared.com.example.rare_finds.activities.MainActivity
+import edu.practice.utils.shared.com.example.rare_finds.models.SqlInfo
+import edu.practice.utils.shared.com.example.rare_finds.sqlconnection.ConnectionHelper
+import edu.practice.utils.shared.com.example.rare_finds.sqlconnection.DatabaseHelper
 
 class AddingCategory : AppCompatActivity() {
     private val con = ConnectionHelper().dbConn()

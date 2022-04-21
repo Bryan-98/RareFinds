@@ -1,5 +1,6 @@
-package com.example.rare_finds
+package edu.practice.utils.shared.com.example.rare_finds.sqlconnection
 
+import edu.practice.utils.shared.com.example.rare_finds.models.Category
 import java.sql.Connection
 import java.sql.SQLException
 
