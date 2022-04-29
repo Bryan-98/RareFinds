@@ -11,7 +11,7 @@ import edu.practice.utils.shared.com.example.rare_finds.sqlconnection.Connection
 import edu.practice.utils.shared.com.example.rare_finds.sqlconnection.DatabaseHelper
 import java.io.Serializable
 
-class RecyclerAdapter: RecyclerView.Adapter<RecyclerAdapter.ViewHolder>() {
+class RecyclerAdapter(userID : Int): RecyclerView.Adapter<RecyclerAdapter.ViewHolder>() {
 
     private var catList = arrayListOf<Category>()
     private lateinit var listener : OnItemClickListener
@@ -19,7 +19,7 @@ class RecyclerAdapter: RecyclerView.Adapter<RecyclerAdapter.ViewHolder>() {
     init {
         val con = ConnectionHelper().dbConn()
         val db = con?.let { DatabaseHelper(it) }
-        val cat = db?.fillCategoryList()
+        val cat = db?.fillCategoryList(userID)
         if (cat != null) {
             catList = cat
         }

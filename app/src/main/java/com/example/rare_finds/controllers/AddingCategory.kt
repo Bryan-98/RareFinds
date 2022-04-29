@@ -40,7 +40,7 @@ class AddingCategory : AppCompatActivity() {
             val col = sqlData.col
             val act = sqlData.activity
             if (con != null) {
-                db?.insertTable(table, col, "'${editTextName.text}','${editTextDescription.text}'")
+                db?.insertTable(table, col, "'${0}','${editTextName.text}','${editTextDescription.text}','${0}'")
             }
             val intent = getActivity(act)
             startActivity(intent)

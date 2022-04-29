@@ -10,4 +10,11 @@
     <string name="cancel_category_name">Cancel</string>
     <string name="image_category">Category Image</string>
 
+    <!--Login Strings-->
+    <string name="user_name">Enter Username or Email</string>
+    <string name="user_pass">Enter Password</string>
+    <string name="btn_signup">Sign Up</string>
+    <string name="btn_login">Login</string>
+    <string name="img_description">User Avatar</string>
+    <string name="user_img"/>
 </resources>

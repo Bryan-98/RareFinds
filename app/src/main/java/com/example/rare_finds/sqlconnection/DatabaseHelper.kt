@@ -1,6 +1,8 @@
 package edu.practice.utils.shared.com.example.rare_finds.sqlconnection
 
 import edu.practice.utils.shared.com.example.rare_finds.models.Category
+import edu.practice.utils.shared.com.example.rare_finds.models.User
+import java.io.Serializable
 import java.sql.Connection
 import java.sql.SQLException
 
@@ -8,18 +10,18 @@ class DatabaseHelper(con: Connection){
 
     private val conn = con
 
-    fun fillCategoryList(): ArrayList<Category>{
-        var cat = arrayListOf<Category>()
-        val sql = "SELECT * FROM dbo.Category"
+    fun fillCategoryList(userId : Int): ArrayList<Category>{
+        val cat = arrayListOf<Category>()
+        val sql = "SELECT * FROM [dbo].[Collection] WHERE UserId = $userId"
         try {
             val rs = conn.createStatement()?.executeQuery(sql)
             if (rs != null) {
                 while (rs.next()) {
                     cat.add(
                         Category(
-                            rs.getInt("CategoryId"),
-                            rs.getString("CategoryName"),
-                            rs.getString("CategoryDescription")
+                            rs.getInt("CollId"),
+                            rs.getString("CollName"),
+                            rs.getString("CollDesc")
                         )
                     )
                 }
@@ -36,5 +38,26 @@ class DatabaseHelper(con: Connection){
         with(conn) {
             createStatement().execute(sqlQuery)
         }
+    }
+
+    fun checkUser(userName: String, pass: String): Serializable{
+        val sqlQuery = "SELECT * FROM [dbo].[User] WHERE UserName = '${userName}'"
+
+        try {
+            val rs = conn.createStatement()?.executeQuery(sqlQuery)
+            if (rs != null) {
+                while (rs.next()) {
+                    return User(
+                        rs.getInt("UserId"),
+                        rs.getString("UserName"),
+                        rs.getString("Email")
+                    )
+                }
+            }
+        } catch (ex: SQLException) {
+            // handle any errors
+            ex.printStackTrace()
+        }
+        return false
     }
 }
