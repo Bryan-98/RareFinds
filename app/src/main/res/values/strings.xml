@@ -16,5 +16,17 @@
     <string name="btn_signup">Sign Up</string>
     <string name="btn_login">Login</string>
     <string name="img_description">User Avatar</string>
-    <string name="user_img"/>
+    <string name="user_img" />
+
+    <!--Signup String-->
+    <string name="signup_user_name">Username</string>
+    <string name="signup_password">Password</string>
+    <string name="signup_email">Email</string>
+    <string name="signup_image"/>
+    <string name="create_user_name">Enter Username</string>
+    <string name="create_password">Enter Password</string>
+    <string name="create_email">Enter Email</string>
+    <string name="create_image">Setup a user profile.</string>
+    <string name="signup_btn_text">Sign UP</string>
+    <string name="cancel_btn_text">Cancel</string>
 </resources>

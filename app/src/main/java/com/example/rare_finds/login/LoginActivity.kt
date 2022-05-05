@@ -6,9 +6,7 @@ import android.os.Bundle
 import android.view.View
 import android.widget.EditText
 import com.example.rare_finds.R
-import edu.practice.utils.shared.com.example.rare_finds.activities.CollectionActivity
 import edu.practice.utils.shared.com.example.rare_finds.activities.MainActivity
-import edu.practice.utils.shared.com.example.rare_finds.models.SqlInfo
 import edu.practice.utils.shared.com.example.rare_finds.sqlconnection.ConnectionHelper
 import edu.practice.utils.shared.com.example.rare_finds.sqlconnection.DatabaseHelper
 
@@ -23,6 +21,15 @@ class LoginActivity : AppCompatActivity() {
         val editTextName = findViewById<EditText>(R.id.userName)
         val editTextDescription = findViewById<EditText>(R.id.userPassword)
 
+        //sign up activity button
+        val btnCancel: View = findViewById(R.id.btnSignup)
+        btnCancel.setOnClickListener{
+            val intent = Intent(this, SignupActivity::class.java)
+            startActivity(intent)
+            finish()
+        }
+
+        //login button
         val btnAdd: View = findViewById(R.id.btnLogin)
         btnAdd.setOnClickListener{
             val name = editTextName.text
@@ -30,6 +37,9 @@ class LoginActivity : AppCompatActivity() {
             if (con != null) {
                 val isUser = db?.checkUser(name.toString(), pass.toString())
                 if(isUser != false) {
+                    println("--------------------------------------------------------------------------------")
+                    println(isUser.toString())
+                    println("--------------------------------------------------------------------------------")
                     val intent = Intent(this, MainActivity::class.java)
                     val user = Bundle()
                     user.putSerializable("userInfo", isUser)

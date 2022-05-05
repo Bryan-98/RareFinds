@@ -6,7 +6,7 @@ import android.view.View
 import android.widget.EditText
 import androidx.appcompat.app.AppCompatActivity
 import com.example.rare_finds.R
-import edu.practice.utils.shared.com.example.rare_finds.activities.CollectionActivity
+import edu.practice.utils.shared.com.example.rare_finds.activities.LibraryActivity
 import edu.practice.utils.shared.com.example.rare_finds.activities.MainActivity
 import edu.practice.utils.shared.com.example.rare_finds.models.SqlInfo
 import edu.practice.utils.shared.com.example.rare_finds.sqlconnection.ConnectionHelper
@@ -39,8 +39,9 @@ class AddingCategory : AppCompatActivity() {
             val table = sqlData.table
             val col = sqlData.col
             val act = sqlData.activity
+            val userId = sqlData.userId
             if (con != null) {
-                db?.insertTable(table, col, "'${0}','${editTextName.text}','${editTextDescription.text}','${0}'")
+                db?.insertTable(table, col, "'${editTextName.text}','${editTextDescription.text}','Music', $userId")
             }
             val intent = getActivity(act)
             startActivity(intent)
@@ -52,8 +53,8 @@ class AddingCategory : AppCompatActivity() {
         var intent = Intent()
 
         when(activity){
-            "category" -> intent = Intent(this, MainActivity::class.java)
-            "collection" -> intent = Intent(this, CollectionActivity::class.java)
+            "collection" -> intent = Intent(this, MainActivity::class.java)
+            "library" -> intent = Intent(this, LibraryActivity::class.java)
         }
 
         return intent

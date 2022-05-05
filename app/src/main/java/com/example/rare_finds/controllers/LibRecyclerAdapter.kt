@@ -7,21 +7,22 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.rare_finds.R
 import edu.practice.utils.shared.com.example.rare_finds.models.Collection
+import edu.practice.utils.shared.com.example.rare_finds.models.Library
 import edu.practice.utils.shared.com.example.rare_finds.sqlconnection.ConnectionHelper
 import edu.practice.utils.shared.com.example.rare_finds.sqlconnection.DatabaseHelper
 import java.io.Serializable
 
-class RecyclerAdapter(userID : Int): RecyclerView.Adapter<RecyclerAdapter.ViewHolder>() {
+class LibRecyclerAdapter(userID : Int): RecyclerView.Adapter<LibRecyclerAdapter.ViewHolder>() {
 
-    private var colList = arrayListOf<Collection>()
+    private var libList = arrayListOf<Library>()
     private lateinit var listener : OnItemClickListener
 
     init {
         val con = ConnectionHelper().dbConn()
         val db = con?.let { DatabaseHelper(it) }
-        val col = db?.fillCollectionList(userID)
-        if (col != null) {
-            colList = col
+        val lib = db?.fillLibraryList(userID)
+        if (lib != null) {
+            libList = lib
         }
     }
 
@@ -39,12 +40,12 @@ class RecyclerAdapter(userID : Int): RecyclerView.Adapter<RecyclerAdapter.ViewHo
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.itemName.text = colList[position].colName
-        holder.itemDescription.text = colList[position].colDescription
+        holder.itemName.text = libList[position].libName
+        holder.itemDescription.text = libList[position].libDescription
     }
 
     override fun getItemCount(): Int {
-        return colList.size
+        return libList.size
     }
 
     inner class ViewHolder(itemView: View, listener: OnItemClickListener): RecyclerView.ViewHolder(itemView){
@@ -53,7 +54,7 @@ class RecyclerAdapter(userID : Int): RecyclerView.Adapter<RecyclerAdapter.ViewHo
 
         init {
             itemView.setOnClickListener {
-                listener.onItemClick(colList[adapterPosition])
+                listener.onItemClick(libList[adapterPosition])
             }
         }
     }

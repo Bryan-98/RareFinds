@@ -21,35 +21,40 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        //Recycler View
         val userInfo = intent.getSerializableExtra("userInfo") as User
-        adapter = RecyclerAdapter(userInfo.userId)
-        //Category View
-        layoutManager = LinearLayoutManager(this)
-        val recyclerView = findViewById<RecyclerView>(R.id.categoryList)
-        recyclerView.layoutManager = layoutManager
-        val intent = Intent(this, CollectionActivity::class.java)
-        adapter.setOnItemClickListener(object: RecyclerAdapter.OnItemClickListener {
-            override fun onItemClick(item: Serializable) {
-                val coll = Bundle()
-                coll.putSerializable("info", item)
-                intent.putExtras(coll)
-                startActivity(intent)
-            }
-        })
-        recyclerView.adapter = adapter
+        recyclerSetup(userInfo)
 
         //Adding Category
         val btnAddingCategory: View = findViewById(R.id.floatingActionButton)
         btnAddingCategory.setOnClickListener{
             val cat = Intent(this, AddingCategory::class.java)
             val category = Bundle()
-            category.putSerializable("sqlDb", sendToCategory())
+            category.putSerializable("sqlDb", sendToCategory(userInfo.userId))
             cat.putExtras(category)
             startActivity(cat)
         }
     }
 
-    private fun sendToCategory(): SqlInfo {
-        return SqlInfo("Collection", "CollName,CollDesc", "category")
+    private fun sendToCategory(userId: Int): SqlInfo {
+        return SqlInfo("Collection", "CollName,CollDesc,CollGenre,UserId", "collection", userId)
+    }
+
+    private fun recyclerSetup(userInfo: User) {
+        adapter = RecyclerAdapter(userInfo.userId)
+        //Category View
+        layoutManager = LinearLayoutManager(this)
+        val recyclerView = findViewById<RecyclerView>(R.id.categoryList)
+        recyclerView.layoutManager = layoutManager
+        val intent = Intent(this, LibraryActivity::class.java)
+        adapter.setOnItemClickListener(object: RecyclerAdapter.OnItemClickListener {
+            override fun onItemClick(item: Serializable) {
+                val coll = Bundle()
+                coll.putSerializable("colInfo", item)
+                intent.putExtras(coll)
+                startActivity(intent)
+            }
+        })
+        recyclerView.adapter = adapter
     }
 }
