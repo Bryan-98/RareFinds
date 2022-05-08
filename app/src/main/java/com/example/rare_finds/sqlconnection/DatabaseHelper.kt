@@ -20,16 +20,16 @@ class DatabaseHelper(con: Connection){
             val rs = conn.createStatement()?.executeQuery(sql)
             if (rs != null) {
                 while (rs.next()) {
-                        col.add(
-                            Collection(
-                                rs.getInt("CollId"),
-                                rs.getString("CollName"),
-                                rs.getString("CollDesc"),
-                                rs.getDouble("CollPrice"),
-                                rs.getString("CollGenre"),
-                                rs.getInt("UserId")
-                            )
+                    col.add(
+                        Collection(
+                            rs.getInt("CollId"),
+                            rs.getString("CollName"),
+                            rs.getString("CollDesc"),
+                            rs.getDouble("CollPrice"),
+                            rs.getString("CollGenre"),
+                            rs.getInt("UserId")
                         )
+                    )
                 }
             }
         } catch (ex: SQLException) {
@@ -72,14 +72,7 @@ class DatabaseHelper(con: Connection){
     }
 
     fun checkUser(userName: String, pass: String): Serializable{
-
-        println("--------------------------------------------------------------------------------")
-        println(userName)
-        println(pass)
-        println("--------------------------------------------------------------------------------")
-
         val sqlQuery = "SELECT * FROM [dbo].[User] WHERE EncryptedPass = '${pass}' AND UserName = '${userName}'"
-
         try {
             val rs = conn.createStatement()?.executeQuery(sqlQuery)
             if (rs != null) {
