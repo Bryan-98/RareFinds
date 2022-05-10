@@ -6,10 +6,8 @@ import android.view.View
 import android.widget.EditText
 import androidx.appcompat.app.AppCompatActivity
 import com.example.rare_finds.R
-import edu.practice.utils.shared.com.example.rare_finds.activities.LibraryActivity
 import edu.practice.utils.shared.com.example.rare_finds.activities.MainActivity
 import edu.practice.utils.shared.com.example.rare_finds.models.SqlInfo
-import edu.practice.utils.shared.com.example.rare_finds.models.User
 import edu.practice.utils.shared.com.example.rare_finds.sqlconnection.ConnectionHelper
 import edu.practice.utils.shared.com.example.rare_finds.sqlconnection.DatabaseHelper
 
@@ -33,6 +31,13 @@ class AddingCategory : AppCompatActivity() {
         val act = sqlData.activity
         val userId = sqlData.userId
         val userBack = intent.getSerializableExtra(backActivity(act))
+
+
+        //Cancel button
+        val btnPicture: View = findViewById(R.id.imageButton)
+        btnPicture.setOnClickListener{
+
+        }
 
         //Cancel button
         val btnCancel: View = findViewById(R.id.cancel_button)
@@ -71,7 +76,7 @@ class AddingCategory : AppCompatActivity() {
 
         when(activity){
             "collection" -> intent = Intent(this, MainActivity::class.java)
-            "library" -> intent = Intent(this, LibraryActivity::class.java)
+            "library" -> intent = Intent(this, MainActivity::class.java)
         }
 
         return intent

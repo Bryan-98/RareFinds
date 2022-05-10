@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/rare_finds_nav"
+    app:startDestination="@id/collectionFragment">
+    <fragment
+        android:id="@+id/collectionFragment"
+        android:name="edu.practice.utils.shared.com.example.rare_finds.fragments.CollectionFragment"
+        android:label="fragment_collection"
+        tools:layout="@layout/fragment_collection" >
+        <action
+            android:id="@+id/action_collectionFragment_to_libraryFragment"
+            app:destination="@id/libraryFragment"
+            app:enterAnim="@anim/from_left"
+            app:exitAnim="@anim/from_left" />
+        <action
+            android:id="@+id/action_collectionFragment_to_addingCollectionFragment"
+            app:destination="@id/addingCollectionFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/libraryFragment"
+        android:name="edu.practice.utils.shared.com.example.rare_finds.fragments.LibraryFragment"
+        android:label="fragment_library"
+        tools:layout="@layout/fragment_library" >
+        <action
+            android:id="@+id/action_libraryFragment_to_collectionFragment"
+            app:destination="@id/collectionFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/addingCollectionFragment"
+        android:name="com.example.rare_finds.AddingCollectionFragment"
+        android:label="fragment_adding_collection"
+        tools:layout="@layout/fragment_adding_collection" />
+</navigation>

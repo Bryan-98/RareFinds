@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.example.rare_finds">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
 
@@ -13,9 +15,6 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Rare_Finds">
-        <activity
-            android:name=".activities.LibraryViewActivity"
-            android:exported="false" />
         <activity
             android:name=".login.SignupActivity"
             android:exported="false" />
@@ -28,9 +27,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name="edu.practice.utils.shared.com.example.rare_finds.activities.LibraryActivity"
-            android:exported="false" />
         <activity
             android:name="edu.practice.utils.shared.com.example.rare_finds.controllers.AddingCategory"
             android:exported="false" />

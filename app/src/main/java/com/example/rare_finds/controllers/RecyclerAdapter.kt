@@ -13,7 +13,7 @@ import java.io.Serializable
 
 class RecyclerAdapter(userID : Int): RecyclerView.Adapter<RecyclerAdapter.ViewHolder>() {
 
-    private var colList = arrayListOf<Collection>()
+    private lateinit var colList : ArrayList<Collection>
     private lateinit var listener : OnItemClickListener
 
     init {

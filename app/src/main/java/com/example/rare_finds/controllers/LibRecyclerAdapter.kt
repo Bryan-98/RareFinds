@@ -12,15 +12,15 @@ import edu.practice.utils.shared.com.example.rare_finds.sqlconnection.Connection
 import edu.practice.utils.shared.com.example.rare_finds.sqlconnection.DatabaseHelper
 import java.io.Serializable
 
-class LibRecyclerAdapter(userID : Int): RecyclerView.Adapter<LibRecyclerAdapter.ViewHolder>() {
+class LibRecyclerAdapter(colId : Int): RecyclerView.Adapter<LibRecyclerAdapter.ViewHolder>() {
 
-    private var libList = arrayListOf<Library>()
+    private lateinit var libList : ArrayList<Library>
     private lateinit var listener : OnItemClickListener
 
     init {
         val con = ConnectionHelper().dbConn()
         val db = con?.let { DatabaseHelper(it) }
-        val lib = db?.fillLibraryList(userID)
+        val lib = db?.fillLibraryList(colId)
         if (lib != null) {
             libList = lib
         }
@@ -35,7 +35,7 @@ class LibRecyclerAdapter(userID : Int): RecyclerView.Adapter<LibRecyclerAdapter.
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val v = LayoutInflater.from(parent.context).inflate(R.layout.category_view, parent, false)
+        val v = LayoutInflater.from(parent.context).inflate(R.layout.library_cell, parent, false)
         return ViewHolder(v, listener)
     }
 
@@ -49,8 +49,8 @@ class LibRecyclerAdapter(userID : Int): RecyclerView.Adapter<LibRecyclerAdapter.
     }
 
     inner class ViewHolder(itemView: View, listener: OnItemClickListener): RecyclerView.ViewHolder(itemView){
-        var itemName: TextView = itemView.findViewById(R.id.category_name_id)
-        var itemDescription: TextView = itemView.findViewById(R.id.category_description_id)
+        var itemName: TextView = itemView.findViewById(R.id.textView5)
+        var itemDescription: TextView = itemView.findViewById(R.id.textView6)
 
         init {
             itemView.setOnClickListener {

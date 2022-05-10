@@ -1,82 +1,84 @@
 package edu.practice.utils.shared.com.example.rare_finds.activities
 
-import android.content.Context
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.View
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-import edu.practice.utils.shared.com.example.rare_finds.controllers.AddingCategory
+import androidx.appcompat.app.ActionBarDrawerToggle
+import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.GravityCompat
+import androidx.drawerlayout.widget.DrawerLayout
+import androidx.fragment.app.Fragment
 import com.example.rare_finds.R
-import edu.practice.utils.shared.com.example.rare_finds.controllers.RecyclerAdapter
-import edu.practice.utils.shared.com.example.rare_finds.models.Collection
-import edu.practice.utils.shared.com.example.rare_finds.models.SqlInfo
-import edu.practice.utils.shared.com.example.rare_finds.models.User
-import java.io.Serializable
-import kotlin.properties.Delegates
+import com.example.rare_finds.login.LoginActivity
+import com.google.android.material.navigation.NavigationView
+import edu.practice.utils.shared.com.example.rare_finds.fragments.CollectionFragment
+import kotlinx.coroutines.*
+import kotlin.system.measureTimeMillis
 
 class MainActivity : AppCompatActivity() {
-    private lateinit var layoutManager: RecyclerView.LayoutManager
-    private lateinit var adapter :RecyclerAdapter
-    private var userId by Delegates.notNull<Int>()
+
+    private lateinit var navView: NavigationView
+    private lateinit var toggle: ActionBarDrawerToggle
+    private lateinit var drawerLayout: DrawerLayout
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        drawerLayout = findViewById(R.id.drawer_layout)
+        navView = findViewById(R.id.navigationView)
 
-        //load userInfo
-        userId = loadUserData()
+        toggle = ActionBarDrawerToggle(this,drawerLayout,R.string.open,R.string.close)
+        drawerLayout.addDrawerListener(toggle)
+        toggle.syncState()
 
-        //Recycler View
-        recyclerSetup(userId)
+        navItemSelect()
+    }
 
-        //Adding Category
-        val btnAddingCategory: View = findViewById(R.id.floatingActionButton)
-        btnAddingCategory.setOnClickListener{
-            val cat = Intent(this, AddingCategory::class.java)
-            val category = Bundle()
-            category.putSerializable("sqlDb", sendToCategory(userId))
-            cat.putExtras(category)
-            startActivity(cat)
-            finish()
+    @OptIn(DelicateCoroutinesApi::class)
+    private fun navItemSelect(){
+        navView.setNavigationItemSelectedListener { menuItem ->
+            when (menuItem.itemId) {
+                R.id.complete_signout -> {
+                    val intent = Intent(this, LoginActivity::class.java)
+                    startActivity(intent)
+                    finish()
+                    true
+                }
+                R.id.collectionFragment -> {
+
+                    GlobalScope.launch {
+                        suspend {
+                            withContext(Dispatchers.Main){
+                                drawerLayout.closeDrawer(GravityCompat.START)
+
+                            }
+                        }.invoke()
+                    }
+                    replaceFragment(CollectionFragment())
+                    true
+                }
+                else -> {
+                    false
+                }
+            }
         }
     }
 
-    private fun sendToCategory(userId: Int): SqlInfo {
-        return SqlInfo("Collection", "CollName,CollDesc,CollGenre,UserId", "collection", userId)
+    private fun replaceFragment(fragment:Fragment){
+
+        val fragmentManager = supportFragmentManager
+        val fragmentTrans = fragmentManager.beginTransaction()
+        fragmentTrans.replace(R.id.fragmentContainerView,fragment)
+        fragmentTrans.commit()
     }
 
-    private fun recyclerSetup(userInfo: Int) {
-        adapter = RecyclerAdapter(userInfo)
-        //Category View
-        layoutManager = LinearLayoutManager(this)
-        val recyclerView = findViewById<RecyclerView>(R.id.categoryList)
-        recyclerView.layoutManager = layoutManager
-        val intent = Intent(this, LibraryActivity::class.java)
-        adapter.setOnItemClickListener(object: RecyclerAdapter.OnItemClickListener {
-            override fun onItemClick(item: Serializable) {
-                val colId = item as Collection
-                sharedUserPref(colId.colId)
-                val coll = Bundle()
-                coll.putSerializable("colInfo", item)
-                intent.putExtras(coll)
-                startActivity(intent)
-            }
-        })
-        recyclerView.adapter = adapter
-    }
-
-    private fun loadUserData():Int{
-        val sp = getSharedPreferences("userInfo", Context.MODE_PRIVATE)
-        return sp.getInt("userId", 0)
-    }
-
-    private fun sharedUserPref(colId:Int){
-        val sp = getSharedPreferences("collInfo", Context.MODE_PRIVATE)
-        val editor = sp.edit()
-        editor.apply{
-            putInt("colId",colId)
-        }.apply()
+    // override the onSupportNavigateUp() function to launch the Drawer when the hamburger icon is clicked
+    override fun onSupportNavigateUp(): Boolean {
+        if (this.drawerLayout.isDrawerOpen(GravityCompat.START)) {
+            this.drawerLayout.closeDrawer(GravityCompat.START)
+        } else {
+            this.drawerLayout.openDrawer(GravityCompat.START)
+        }
+        return true
     }
 }

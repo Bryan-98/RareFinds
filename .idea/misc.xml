@@ -3,6 +3,9 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/Bryan/AndroidStudioProjects/RareFinds/app/src/main/res/drawable-anydpi/ic_username_icon.xml" value="0.5475" />
+        <entry key="..\:/Users/Bryan/AndroidStudioProjects/RareFinds/app/src/main/res/drawable/ic_launcher_background.xml" value="0.5475" />
+        <entry key="..\:/Users/Bryan/AndroidStudioProjects/RareFinds/app/src/main/res/drawable/ic_password_icon.xml" value="0.5475" />
         <entry key="..\:/Users/Bryan/AndroidStudioProjects/RareFinds/app/src/main/res/layout-w1240dp/content_scrolling.xml" value="0.23828647925033467" />
         <entry key="..\:/Users/Bryan/AndroidStudioProjects/RareFinds/app/src/main/res/layout-w936dp/content_scrolling.xml" value="0.278125" />
         <entry key="..\:/Users/Bryan/AndroidStudioProjects/RareFinds/app/src/main/res/layout/activity_adding_category.xml" value="0.5541666666666667" />
@@ -10,10 +13,15 @@
         <entry key="..\:/Users/Bryan/AndroidStudioProjects/RareFinds/app/src/main/res/layout/activity_library.xml" value="0.33" />
         <entry key="..\:/Users/Bryan/AndroidStudioProjects/RareFinds/app/src/main/res/layout/activity_library_view.xml" value="0.37083333333333335" />
         <entry key="..\:/Users/Bryan/AndroidStudioProjects/RareFinds/app/src/main/res/layout/activity_login.xml" value="0.5" />
-        <entry key="..\:/Users/Bryan/AndroidStudioProjects/RareFinds/app/src/main/res/layout/activity_main.xml" value="0.3338541666666667" />
+        <entry key="..\:/Users/Bryan/AndroidStudioProjects/RareFinds/app/src/main/res/layout/activity_main.xml" value="0.1" />
         <entry key="..\:/Users/Bryan/AndroidStudioProjects/RareFinds/app/src/main/res/layout/activity_signup.xml" value="0.5" />
         <entry key="..\:/Users/Bryan/AndroidStudioProjects/RareFinds/app/src/main/res/layout/category_view.xml" value="0.3338541666666667" />
         <entry key="..\:/Users/Bryan/AndroidStudioProjects/RareFinds/app/src/main/res/layout/content_scrolling.xml" value="0.37083333333333335" />
+        <entry key="..\:/Users/Bryan/AndroidStudioProjects/RareFinds/app/src/main/res/layout/fragment_adding_collection.xml" value="0.46979166666666666" />
+        <entry key="..\:/Users/Bryan/AndroidStudioProjects/RareFinds/app/src/main/res/layout/fragment_collection.xml" value="0.33" />
+        <entry key="..\:/Users/Bryan/AndroidStudioProjects/RareFinds/app/src/main/res/layout/fragment_library.xml" value="0.4117647058823529" />
+        <entry key="..\:/Users/Bryan/AndroidStudioProjects/RareFinds/app/src/main/res/layout/library_cell.xml" value="0.33" />
+        <entry key="..\:/Users/Bryan/AndroidStudioProjects/RareFinds/app/src/main/res/menu/drawer_menu.xml" value="0.5541666666666667" />
         <entry key="..\:/Users/Bryan/AndroidStudioProjects/Rare_Finds/app/src/main/res/layout/activity_adding_category.xml" value="0.5" />
         <entry key="..\:/Users/Bryan/AndroidStudioProjects/Rare_Finds/app/src/main/res/layout/activity_collection.xml" value="0.1" />
         <entry key="..\:/Users/Bryan/AndroidStudioProjects/Rare_Finds/app/src/main/res/layout/activity_library.xml" value="0.1" />
