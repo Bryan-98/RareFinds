@@ -1,7 +1,9 @@
 package edu.practice.utils.shared.com.example.rare_finds.activities
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.widget.TextView
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
@@ -12,17 +14,19 @@ import com.example.rare_finds.login.LoginActivity
 import com.google.android.material.navigation.NavigationView
 import edu.practice.utils.shared.com.example.rare_finds.fragments.CollectionFragment
 import kotlinx.coroutines.*
-import kotlin.system.measureTimeMillis
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var navView: NavigationView
     private lateinit var toggle: ActionBarDrawerToggle
     private lateinit var drawerLayout: DrawerLayout
+    private lateinit var userName: TextView
+    private lateinit var userEmail: TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         drawerLayout = findViewById(R.id.drawer_layout)
         navView = findViewById(R.id.navigationView)
@@ -32,6 +36,9 @@ class MainActivity : AppCompatActivity() {
         toggle.syncState()
 
         navItemSelect()
+        userName = navView.getHeaderView(0).findViewById(R.id.header_username)
+        userEmail = navView.getHeaderView(0).findViewById(R.id.header_email)
+        loadUserData()
     }
 
     @OptIn(DelicateCoroutinesApi::class)
@@ -39,6 +46,15 @@ class MainActivity : AppCompatActivity() {
         navView.setNavigationItemSelectedListener { menuItem ->
             when (menuItem.itemId) {
                 R.id.complete_signout -> {
+
+                    GlobalScope.launch {
+                        suspend {
+                            withContext(Dispatchers.Main){
+                                drawerLayout.closeDrawer(GravityCompat.START)
+
+                            }
+                        }.invoke()
+                    }
                     val intent = Intent(this, LoginActivity::class.java)
                     startActivity(intent)
                     finish()
@@ -80,5 +96,11 @@ class MainActivity : AppCompatActivity() {
             this.drawerLayout.openDrawer(GravityCompat.START)
         }
         return true
+    }
+
+    private fun loadUserData(){
+        val sp = getSharedPreferences("userInfo", Context.MODE_PRIVATE)
+        userName.text = sp.getString("userName","")
+        userEmail.text = sp.getString("email","")
     }
 }

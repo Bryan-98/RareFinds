@@ -18,9 +18,9 @@ class SignupActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_signup)
 
-        val editTextName = findViewById<EditText>(R.id.signUserName)
-        val editTextEmail = findViewById<EditText>(R.id.signUserMail)
-        val editTextPass = findViewById<EditText>(R.id.signUserPass)
+        val editTextName = findViewById<EditText>(R.id.signUserName2)
+        val editTextEmail = findViewById<EditText>(R.id.signUserMail2)
+        val editTextPass = findViewById<EditText>(R.id.signUserPass2)
 
         //Cancel button
         val btnCancel: View = findViewById(R.id.signUpCancelBtn)

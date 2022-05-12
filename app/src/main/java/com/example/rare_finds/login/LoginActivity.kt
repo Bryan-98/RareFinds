@@ -20,7 +20,7 @@ class LoginActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
 
-        val editTextName = findViewById<EditText>(R.id.userName)
+        val editTextName = findViewById<EditText>(R.id.userName2)
         val editTextDescription = findViewById<EditText>(R.id.userPassword)
 
         //sign up activity button

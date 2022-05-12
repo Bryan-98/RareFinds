@@ -26,10 +26,18 @@
         <action
             android:id="@+id/action_libraryFragment_to_collectionFragment"
             app:destination="@id/collectionFragment" />
+        <action
+            android:id="@+id/action_libraryFragment_to_addingLibraryFragment"
+            app:destination="@id/addingLibraryFragment" />
     </fragment>
     <fragment
         android:id="@+id/addingCollectionFragment"
-        android:name="com.example.rare_finds.AddingCollectionFragment"
+        android:name="edu.practice.utils.shared.com.example.rare_finds.controllers.AddingCollectionFragment"
         android:label="fragment_adding_collection"
         tools:layout="@layout/fragment_adding_collection" />
+    <fragment
+        android:id="@+id/addingLibraryFragment"
+        android:name="com.example.rare_finds.AddingLibraryFragment"
+        android:label="fragment_adding_library"
+        tools:layout="@layout/fragment_adding_library" />
 </navigation>

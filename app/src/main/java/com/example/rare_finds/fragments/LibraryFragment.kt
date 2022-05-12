@@ -40,7 +40,7 @@ class LibraryFragment : Fragment() {
         view.apply{
             val recyclerView = view.findViewById<RecyclerView>(R.id.libraryView)
             adapter = LibRecyclerAdapter(colId)
-            layoutManager = GridLayoutManager(this.context,2)
+            layoutManager = LinearLayoutManager(this.context)
             recyclerView.layoutManager = layoutManager
             adapter.setOnItemClickListener(object: LibRecyclerAdapter.OnItemClickListener {
                 override fun onItemClick(item: Serializable) {

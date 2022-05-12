@@ -35,7 +35,7 @@ class LibRecyclerAdapter(colId : Int): RecyclerView.Adapter<LibRecyclerAdapter.V
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val v = LayoutInflater.from(parent.context).inflate(R.layout.library_cell, parent, false)
+        val v = LayoutInflater.from(parent.context).inflate(R.layout.category_view, parent, false)
         return ViewHolder(v, listener)
     }
 
@@ -49,8 +49,8 @@ class LibRecyclerAdapter(colId : Int): RecyclerView.Adapter<LibRecyclerAdapter.V
     }
 
     inner class ViewHolder(itemView: View, listener: OnItemClickListener): RecyclerView.ViewHolder(itemView){
-        var itemName: TextView = itemView.findViewById(R.id.textView5)
-        var itemDescription: TextView = itemView.findViewById(R.id.textView6)
+        var itemName: TextView = itemView.findViewById(R.id.category_name_id)
+        var itemDescription: TextView = itemView.findViewById(R.id.category_description_id)
 
         init {
             itemView.setOnClickListener {
