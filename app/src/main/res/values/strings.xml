@@ -33,8 +33,9 @@
         <item>Music</item>
         <item>Video</item>
         <item>Games</item>
-        <item>Electronics</item>
+        <item>Video Games</item>
         <item>Computers</item>
+        <item>Phones</item>
     </string-array>
 
     <!--Login Strings-->

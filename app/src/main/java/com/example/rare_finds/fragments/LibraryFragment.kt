@@ -7,10 +7,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
-import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.rare_finds.R
+import com.example.rare_finds.controllers.AddingLibraryFragment
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import edu.practice.utils.shared.com.example.rare_finds.controllers.LibRecyclerAdapter
 import edu.practice.utils.shared.com.example.rare_finds.models.Library
 import java.io.Serializable
@@ -38,17 +39,31 @@ class LibraryFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         (activity as AppCompatActivity).supportActionBar?.title = getString(R.string.library_name)
         view.apply{
-            val recyclerView = view.findViewById<RecyclerView>(R.id.libraryView)
-            adapter = LibRecyclerAdapter(colId)
-            layoutManager = LinearLayoutManager(this.context)
-            recyclerView.layoutManager = layoutManager
-            adapter.setOnItemClickListener(object: LibRecyclerAdapter.OnItemClickListener {
-                override fun onItemClick(item: Serializable) {
-                    val libId = item as Library
-                    sharedUserPref(libId.libId)
-                }
-            })
-            recyclerView.adapter = adapter
+            loadCollectionList(view)
+            openAddingLib(view)
+        }
+    }
+
+    private fun loadCollectionList(view: View){
+        val recyclerView = view.findViewById<RecyclerView>(R.id.libraryView)
+        adapter = LibRecyclerAdapter(colId)
+        layoutManager = LinearLayoutManager(this.context)
+        recyclerView.layoutManager = layoutManager
+        adapter.setOnItemClickListener(object: LibRecyclerAdapter.OnItemClickListener {
+            override fun onItemClick(item: Serializable) {
+                val libId = item as Library
+                sharedUserPref(libId.libId)
+            }
+        })
+        recyclerView.adapter = adapter
+    }
+
+    private fun openAddingLib(view:View){
+        val btn = view.findViewById<FloatingActionButton>(R.id.floatingActionButton)
+        btn.setOnClickListener {
+            val act = view.context as AppCompatActivity
+            val dio = AddingLibraryFragment()
+            dio.show(act.supportFragmentManager,"libraryDialog")
         }
     }
 

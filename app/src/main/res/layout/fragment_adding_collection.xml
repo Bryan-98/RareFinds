@@ -26,7 +26,7 @@
         android:layout_marginStart="80dp"
         android:layout_marginEnd="80dp"
         android:inputType="textPersonName"
-        android:hint="@string/user_name"
+        android:hint="@string/category_name"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/libray_image_selected" >
@@ -50,7 +50,7 @@
         android:layout_marginStart="80dp"
         android:layout_marginEnd="80dp"
         android:inputType="textPersonName"
-        android:hint="@string/user_name"
+        android:hint="@string/category_description"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.502"
         app:layout_constraintStart_toStartOf="parent"
@@ -75,7 +75,6 @@
         android:layout_marginEnd="80dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        android:hint="@string/user_name"
         app:layout_constraintTop_toBottomOf="@+id/input_collection_description"
         tools:ignore="SpeakableTextPresentCheck" />
 

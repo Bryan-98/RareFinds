@@ -40,4 +40,9 @@
         android:name="com.example.rare_finds.AddingLibraryFragment"
         android:label="fragment_adding_library"
         tools:layout="@layout/fragment_adding_library" />
+    <fragment
+        android:id="@+id/searchFragment"
+        android:name="com.example.rare_finds.SearchFragment"
+        android:label="fragment_search"
+        tools:layout="@layout/fragment_search" />
 </navigation>
