@@ -25,7 +25,6 @@ class DatabaseHelper(con: Connection){
                             rs.getInt("CollId"),
                             rs.getString("CollName"),
                             rs.getString("CollDesc"),
-                            rs.getDouble("CollPrice"),
                             rs.getString("CollGenre"),
                             rs.getInt("UserId")
                         )
@@ -64,11 +63,19 @@ class DatabaseHelper(con: Connection){
         return lib
     }
 
-    fun insertTable(table: String, col: String, values: String) {
+    fun insertTable(table: String, col: String, values: String):Boolean {
         val sqlQuery = "INSERT INTO $table ($col) VALUES ($values)"
         with(conn) {
-            createStatement().execute(sqlQuery)
+            try{
+                createStatement().execute(sqlQuery)
+            } catch (ex: SQLException){
+                println("--------------------------------------------------")
+                println(ex.message)
+                println("--------------------------------------------------")
+             return false
+            }
         }
+        return true
     }
 
     fun checkUser(userName: String, pass: String): Serializable{
@@ -80,14 +87,33 @@ class DatabaseHelper(con: Connection){
                     return User(
                         rs.getInt("UserId"),
                         rs.getString("UserName"),
-                        rs.getString("Email")
+                        rs.getString("Email"),
+                        rs.getString("imageUrl")
                     )
                 }
             }
         } catch (ex: SQLException) {
-            // handle any errors
-            ex.printStackTrace()
+            println("--------------------------------------------------")
+            println(ex.message)
+            println("--------------------------------------------------")
         }
         return false
+    }
+
+    fun checkCount(id: String, table: String): Int{
+        val sqlQuery = "SELECT COUNT($id)AS 'sum' FROM [dbo].[$table]"
+        try {
+            val rs = conn.createStatement()?.executeQuery(sqlQuery)
+            if (rs != null) {
+                while (rs.next()) {
+                    return rs.getInt("sum")
+                }
+            }
+        } catch (ex: SQLException) {
+            println("--------------------------------------------------")
+            println(ex.message)
+            println("--------------------------------------------------")
+        }
+        return 0
     }
 }

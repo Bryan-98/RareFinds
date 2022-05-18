@@ -45,6 +45,7 @@
     <string name="btn_signup">Sign Up</string>
     <string name="btn_login">Login</string>
     <string name="img_description">User Avatar</string>
+    <string name="sql_error_login">* Incorrect Username or Password.</string>
     <string name="user_img" />
 
     <!--Signup String-->
@@ -55,6 +56,8 @@
     <string name="create_image">Setup a user profile.</string>
     <string name="signup_btn_text">Sign UP</string>
     <string name="cancel_btn_text">Cancel</string>
+    <string name="btn_description">Button to add image to profile</string>
+    <string name="sql_error">* Sorry use a different email or username.</string>
 
 
     <!-- TODO: Remove or change this placeholder text -->

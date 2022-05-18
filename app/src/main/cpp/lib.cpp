@@ -27,3 +27,10 @@ Java_edu_practice_utils_shared_Keys_pass(JNIEnv *env, jobject thiz) {
 std::string pass = "Projectmanagermonkey222222$";
 return env->NewStringUTF(pass.c_str());
 }
+
+extern "C"
+JNIEXPORT jstring JNICALL
+Java_edu_practice_utils_shared_Keys_blob(JNIEnv *env, jobject thiz) {
+    std::string pass = "DefaultEndpointsProtocol=https;AccountName=rarefindsstorage;AccountKey=QepH2XJUlT29kpy+eb6UZCgf5UlkYJha+SnM70nyBFlXrLRYiPFRPB6Y8TtCxPq+FtnimP9KKSNubFj9gSfUBw==;EndpointSuffix=core.windows.net";
+    return env->NewStringUTF(pass.c_str());
+}

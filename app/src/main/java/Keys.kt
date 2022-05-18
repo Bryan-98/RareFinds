@@ -10,4 +10,5 @@ object Keys {
     external fun db(): String
     external fun user(): String
     external fun pass(): String
+    external fun blob(): String
 }

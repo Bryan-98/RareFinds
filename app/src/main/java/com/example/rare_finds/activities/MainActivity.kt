@@ -2,8 +2,11 @@ package edu.practice.utils.shared.com.example.rare_finds.activities
 
 import android.content.Context
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
+import android.widget.ImageView
 import android.widget.TextView
+import androidx.annotation.RequiresApi
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
@@ -13,16 +16,21 @@ import com.example.rare_finds.R
 import com.example.rare_finds.login.LoginActivity
 import com.google.android.material.navigation.NavigationView
 import edu.practice.utils.shared.com.example.rare_finds.fragments.CollectionFragment
+import edu.practice.utils.shared.com.example.rare_finds.sqlconnection.BlobConnection
 import kotlinx.coroutines.*
 
 class MainActivity : AppCompatActivity() {
 
+    private val storageCon = BlobConnection()
     private lateinit var navView: NavigationView
     private lateinit var toggle: ActionBarDrawerToggle
     private lateinit var drawerLayout: DrawerLayout
     private lateinit var userName: TextView
     private lateinit var userEmail: TextView
+    private lateinit var userImage: ImageView
 
+    @OptIn(DelicateCoroutinesApi::class)
+    @RequiresApi(Build.VERSION_CODES.P)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -38,7 +46,11 @@ class MainActivity : AppCompatActivity() {
         navItemSelect()
         userName = navView.getHeaderView(0).findViewById(R.id.header_username)
         userEmail = navView.getHeaderView(0).findViewById(R.id.header_email)
-        loadUserData()
+        userImage = navView.getHeaderView(0).findViewById(R.id.header_image)
+
+        GlobalScope.launch(Dispatchers.IO){
+            loadUserData()
+        }
     }
 
     @OptIn(DelicateCoroutinesApi::class)
@@ -102,5 +114,7 @@ class MainActivity : AppCompatActivity() {
         val sp = getSharedPreferences("userInfo", Context.MODE_PRIVATE)
         userName.text = sp.getString("userName","")
         userEmail.text = sp.getString("email","")
+        val image = sp.getString("imageUrl","")
+        userImage.setImageBitmap(image?.let { storageCon.getImage(it) })
     }
 }
