@@ -19,7 +19,7 @@
         android:contentDescription="@string/header_image_des"
         android:paddingTop="8dp"
         android:adjustViewBounds="true"
-        android:scaleType="fitCenter"
+        android:scaleType="fitXY"
         app:srcCompat="@drawable/ic_launcher_foreground"
         tools:ignore="ImageContrastCheck" />
 

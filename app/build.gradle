@@ -47,6 +47,7 @@ dependencies {
 
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.1.0'
     implementation 'com.microsoft.azure.android:azure-storage-android:0.6.0@aar'
+    implementation 'com.squareup.picasso:picasso:2.71828'
     implementation 'androidx.core:core-ktx:1.7.0'
     implementation 'androidx.appcompat:appcompat:1.4.1'
     implementation 'com.google.android.material:material:1.5.0'

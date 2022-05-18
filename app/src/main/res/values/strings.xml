@@ -59,8 +59,6 @@
     <string name="btn_description">Button to add image to profile</string>
     <string name="sql_error">* Sorry use a different email or username.</string>
 
-
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
 </resources>

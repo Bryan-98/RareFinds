@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:duration="@android:integer/config_shortAnimTime"
     android:slideEdge="right"
-    tools:context="edu.practice.utils.shared.com.example.rare_finds.fragments.CollectionFragment">
+    tools:context="edu.practice.utils.shared.com.example.rare_finds.fragments.SearchFragment">
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/collectionView"

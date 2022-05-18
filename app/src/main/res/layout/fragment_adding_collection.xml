@@ -7,15 +7,18 @@
     tools:context="edu.practice.utils.shared.com.example.rare_finds.controllers.AddingCollectionFragment">
 
     <ImageButton
-        android:id="@+id/libray_image_selected"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:id="@+id/library_image_selected"
+        android:layout_width="125dp"
+        android:layout_height="125dp"
         android:layout_marginTop="140dp"
-        android:src="@drawable/ic_launcher_foreground"
+        android:adjustViewBounds="true"
+        android:contentDescription="@string/img_description"
+        android:scaleType="fitXY"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="DuplicateSpeakableTextCheck" />
 
     <com.google.android.material.textfield.TextInputLayout
         style ="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
@@ -27,9 +30,10 @@
         android:layout_marginEnd="80dp"
         android:inputType="textPersonName"
         android:hint="@string/category_name"
+        app:errorEnabled="true"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/libray_image_selected" >
+        app:layout_constraintTop_toBottomOf="@+id/library_image_selected" >
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/collection_name"
@@ -42,19 +46,20 @@
 
 
     <com.google.android.material.textfield.TextInputLayout
-        style ="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:id="@+id/input_collection_description"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="250dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="60dp"
         android:layout_marginStart="80dp"
+        android:layout_marginTop="30dp"
         android:layout_marginEnd="80dp"
-        android:inputType="textPersonName"
         android:hint="@string/category_description"
+        android:inputType="textPersonName"
+        app:errorEnabled="true"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.502"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/input_collection_name" >
+        app:layout_constraintTop_toBottomOf="@+id/input_collection_name">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/collection_description"
@@ -95,12 +100,28 @@
 
     <ImageButton
         android:id="@+id/collection_cancel_btn"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="24dp"
+        android:background="#00000000"
+        android:contentDescription="@string/img_description"
+
+        android:src="@drawable/ic_baseline_close"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="ImageContrastCheck" />
+
+    <ImageView
+        android:id="@+id/add_image_icon"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
-        android:layout_marginEnd="24dp"
-        android:src="@android:drawable/ic_menu_close_clear_cancel"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:contentDescription="@string/btn_description"
+        android:src="@drawable/ic_baseline_add_photo_alternate"
+        app:layout_constraintBottom_toBottomOf="@+id/library_image_selected"
+        app:layout_constraintEnd_toEndOf="@+id/library_image_selected"
+        app:layout_constraintStart_toStartOf="@+id/library_image_selected"
+        app:layout_constraintTop_toTopOf="@+id/library_image_selected"
+        tools:ignore="RedundantDescriptionCheck" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

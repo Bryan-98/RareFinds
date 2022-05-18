@@ -59,13 +59,8 @@ class MainActivity : AppCompatActivity() {
             when (menuItem.itemId) {
                 R.id.complete_signout -> {
 
-                    GlobalScope.launch {
-                        suspend {
-                            withContext(Dispatchers.Main){
-                                drawerLayout.closeDrawer(GravityCompat.START)
-
-                            }
-                        }.invoke()
+                    GlobalScope.launch(Dispatchers.IO){
+                        drawerLayout.closeDrawer(GravityCompat.START)
                     }
                     val intent = Intent(this, LoginActivity::class.java)
                     startActivity(intent)
@@ -74,13 +69,8 @@ class MainActivity : AppCompatActivity() {
                 }
                 R.id.collectionFragment -> {
 
-                    GlobalScope.launch {
-                        suspend {
-                            withContext(Dispatchers.Main){
-                                drawerLayout.closeDrawer(GravityCompat.START)
-
-                            }
-                        }.invoke()
+                    GlobalScope.launch(Dispatchers.IO){
+                        drawerLayout.closeDrawer(GravityCompat.START)
                     }
                     replaceFragment(CollectionFragment())
                     true

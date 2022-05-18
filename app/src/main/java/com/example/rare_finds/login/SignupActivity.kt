@@ -112,7 +112,7 @@ class SignupActivity : AppCompatActivity() {
                 imageUrl = BlobConnection().returnImageUrl("users", "default")
             }
             else -> {
-                val userCount = db?.checkCount("userName", "User")?.plus(1)
+                val userCount = db?.checkCount("UserId", "User")?.plus(1)
                 GlobalScope.launch(Dispatchers.IO) {
                     storageCon.blobConnection(
                         imageUri,

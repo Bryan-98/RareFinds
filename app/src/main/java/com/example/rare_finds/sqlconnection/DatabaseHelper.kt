@@ -26,7 +26,8 @@ class DatabaseHelper(con: Connection){
                             rs.getString("CollName"),
                             rs.getString("CollDesc"),
                             rs.getString("CollGenre"),
-                            rs.getInt("UserId")
+                            rs.getInt("UserId"),
+                            rs.getString("ImageUrl")
                         )
                     )
                 }
@@ -50,7 +51,11 @@ class DatabaseHelper(con: Connection){
                             rs.getInt("LibId"),
                             rs.getString("LibName"),
                             rs.getString("LibDesc"),
+                            rs.getInt("LibYear"),
+                            rs.getInt("LibPrice"),
+                            rs.getString("LibPublisher"),
                             rs.getString("LibGenre"),
+                            rs.getString("ImageUrl"),
                             rs.getInt("CollId")
                         )
                     )
