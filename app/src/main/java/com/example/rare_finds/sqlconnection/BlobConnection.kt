@@ -53,7 +53,7 @@ class BlobConnection() {
             container.uploadPermissions(containerPermissions)
 
             // Create or overwrite the "fileName.jpg" blob with contents from a local file
-            val blob = container.getBlockBlobReference("$fileName.jpg")
+            val blob = container.getBlockBlobReference("$fileName.jpeg")
             val source = getRealPathFromURI(imageUri, cont)?.let { File(it) }
             if (source != null) {
                 blob.upload(FileInputStream(source), source.length())
@@ -81,7 +81,7 @@ class BlobConnection() {
     }
 
     fun returnImageUrl(container: String, imageName: String): String{
-        return "$imageUrlLocation/$container/$imageName.jpg"
+        return "$imageUrlLocation/$container/$imageName.jpeg"
     }
 
     fun getImage(imageName: String): Bitmap? {
