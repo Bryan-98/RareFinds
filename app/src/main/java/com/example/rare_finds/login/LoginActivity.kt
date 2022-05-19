@@ -18,10 +18,10 @@ import edu.practice.utils.shared.com.example.rare_finds.sqlconnection.DatabaseHe
 class LoginActivity : AppCompatActivity() {
     private val con = ConnectionHelper().dbConn()
     private val db = con?.let { DatabaseHelper(it) }
-    private lateinit var til : TextInputLayout;
-    private lateinit var name : Editable;
-    private lateinit var pass : Editable;
-    private lateinit var errorMsg : TextView;
+    private lateinit var til : TextInputLayout
+    private lateinit var name : Editable
+    private lateinit var pass : Editable
+    private lateinit var errorMsg : TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
