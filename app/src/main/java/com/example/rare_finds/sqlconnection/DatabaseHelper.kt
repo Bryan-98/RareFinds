@@ -83,6 +83,21 @@ class DatabaseHelper(con: Connection){
         return true
     }
 
+    fun updateUserTable(newPass: String, newImage: String, id: Int):Boolean {
+        val sqlQuery = "UPDATE [dbo].[User] SET EncryptedPass = CONVERT(VARBINARY(160),'$newPass'), ImageUrl = '$newImage' WHERE UserId = $id"
+        with(conn) {
+            try{
+                createStatement().execute(sqlQuery)
+            } catch (ex: SQLException){
+                println("--------------------------------------------------")
+                println(ex.message)
+                println("--------------------------------------------------")
+                return false
+            }
+        }
+        return true
+    }
+
     fun checkUser(userName: String, pass: String): Serializable{
         val sqlQuery = "SELECT * FROM [dbo].[User] WHERE EncryptedPass = '${pass}' AND UserName = '${userName}'"
         try {

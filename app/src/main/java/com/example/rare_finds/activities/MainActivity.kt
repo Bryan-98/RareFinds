@@ -13,9 +13,11 @@ import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
 import com.example.rare_finds.R
+import edu.practice.utils.shared.com.example.rare_finds.fragments.UpDatingUserFragment
 import com.example.rare_finds.login.LoginActivity
 import com.google.android.material.navigation.NavigationView
 import edu.practice.utils.shared.com.example.rare_finds.fragments.CollectionFragment
+import edu.practice.utils.shared.com.example.rare_finds.fragments.SearchFragment
 import edu.practice.utils.shared.com.example.rare_finds.sqlconnection.BlobConnection
 import kotlinx.coroutines.*
 
@@ -67,12 +69,28 @@ class MainActivity : AppCompatActivity() {
                     finish()
                     true
                 }
+                R.id.upDatingUserFragmentFragment -> {
+
+                    GlobalScope.launch(Dispatchers.IO){
+                        drawerLayout.closeDrawer(GravityCompat.START)
+                    }
+                    replaceFragment(UpDatingUserFragment())
+                    true
+                }
                 R.id.collectionFragment -> {
 
                     GlobalScope.launch(Dispatchers.IO){
                         drawerLayout.closeDrawer(GravityCompat.START)
                     }
                     replaceFragment(CollectionFragment())
+                    true
+                }
+                R.id.searchFragment -> {
+
+                    GlobalScope.launch(Dispatchers.IO){
+                        drawerLayout.closeDrawer(GravityCompat.START)
+                    }
+                    replaceFragment(SearchFragment())
                     true
                 }
                 else -> {
@@ -85,8 +103,8 @@ class MainActivity : AppCompatActivity() {
     private fun replaceFragment(fragment:Fragment){
 
         val fragmentManager = supportFragmentManager
-        val fragmentTrans = fragmentManager.beginTransaction()
-        fragmentTrans.replace(R.id.fragmentContainerView,fragment)
+        val fragmentTrans = fragmentManager.beginTransaction().setCustomAnimations(R.anim.from_right, R.anim.from_left, android.R.anim.slide_in_left, android.R.anim.slide_out_right)
+        fragmentTrans.replace(R.id.fragmentContainerView,fragment).addToBackStack(null)
         fragmentTrans.commit()
     }
 

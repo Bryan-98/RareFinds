@@ -5,6 +5,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.example.rare_finds.R
 import com.squareup.picasso.Picasso
@@ -16,7 +17,6 @@ import java.io.Serializable
 
 class RecyclerAdapter(userID : Int): RecyclerView.Adapter<RecyclerAdapter.ViewHolder>() {
 
-    private val storageCon = BlobConnection()
     private lateinit var colList : ArrayList<Collection>
     private lateinit var listener : OnItemClickListener
 
@@ -31,6 +31,7 @@ class RecyclerAdapter(userID : Int): RecyclerView.Adapter<RecyclerAdapter.ViewHo
 
     interface OnItemClickListener{
         fun onItemClick(item: Serializable)
+        fun onLongItemClick(item: Serializable): Boolean
     }
 
     fun setOnItemClickListener(listener : OnItemClickListener){
@@ -43,9 +44,11 @@ class RecyclerAdapter(userID : Int): RecyclerView.Adapter<RecyclerAdapter.ViewHo
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+
         holder.itemName.text = colList[position].colName
         holder.itemDescription.text = colList[position].colDescription
         Picasso.get().load(colList[position].imageUrl).fit().into(holder.itemImage)
+
     }
 
     override fun getItemCount(): Int {
@@ -57,9 +60,13 @@ class RecyclerAdapter(userID : Int): RecyclerView.Adapter<RecyclerAdapter.ViewHo
         var itemDescription: TextView = itemView.findViewById(R.id.category_description_id)
         var itemImage: ImageView = itemView.findViewById(R.id.category_image_id)
 
+
         init {
             itemView.setOnClickListener {
                 listener.onItemClick(colList[adapterPosition])
+            }
+            itemView.setOnLongClickListener {
+                listener.onLongItemClick(colList[adapterPosition])
             }
         }
     }

@@ -3,9 +3,17 @@
     <color name="purple_200">#FFBB86FC</color>
     <color name="purple_500">#FF6200EE</color>
     <color name="purple_700">#FF3700B3</color>
-    <color name="teal_200">#FF03DAC5</color>
-    <color name="teal_700">#FF018786</color>
+    <color name="teal_200">#4DAAA7</color>
+    <color name="teal_700">#3F8F8B</color>
+    <color name="dark_grey">#333333</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="red">#FF0000</color>
+
+    <color name= "Deep_Teal_Sea_1" rgb='012E40' r='1' g='45' b='63' />
+    <color name="Deep_Teal_Sea_2" rgb='024959' r='2' g='73' b='89' />
+    <color name="Deep_Teal_Sea_3" rgb='026773' r='2' g='103' b='114' />
+    <color name="Deep_Teal_Sea_4" rgb='3CA6A6' r='59' g='165' b='165' />
+    <color name="Deep_Teal_Sea_5" rgb='F2E3D5' r='242' g='226' b='212' />
 </resources>
+

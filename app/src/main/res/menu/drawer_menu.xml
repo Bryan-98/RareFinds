@@ -7,6 +7,7 @@
         <item android:title="Library">
             <menu>
                 <item android:title="@string/search_frag"
+                    android:id="@+id/searchFragment"
                     android:icon="@drawable/ic_search_icon"/>
 
                 <item
@@ -22,6 +23,7 @@
         <item android:title="Profile">
             <menu>
                 <item android:title="@string/profile_settings"
+                    android:id="@+id/upDatingUserFragmentFragment"
                     android:icon="@drawable/ic_setting_icon"/>
 
                 <item

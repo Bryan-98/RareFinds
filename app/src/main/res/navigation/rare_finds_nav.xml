@@ -11,9 +11,7 @@
         tools:layout="@layout/fragment_collection" >
         <action
             android:id="@+id/action_collectionFragment_to_libraryFragment"
-            app:destination="@id/libraryFragment"
-            app:enterAnim="@anim/from_left"
-            app:exitAnim="@anim/from_left" />
+            app:destination="@id/libraryFragment" />
         <action
             android:id="@+id/action_collectionFragment_to_addingCollectionFragment"
             app:destination="@id/addingCollectionFragment" />
@@ -45,4 +43,9 @@
         android:name="com.example.rare_finds.SearchFragment"
         android:label="fragment_search"
         tools:layout="@layout/fragment_search" />
+    <fragment
+        android:id="@+id/upDatingUserFragment"
+        android:name="edu.practice.utils.shared.com.example.rare_finds.fragments.UpDatingUserFragment"
+        android:label="fragment_up_dating_user"
+        tools:layout="@layout/fragment_up_dating_user" />
 </navigation>

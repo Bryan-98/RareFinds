@@ -61,7 +61,7 @@ class AddingLibraryFragment : DialogFragment() {
         (activity as AppCompatActivity).supportActionBar?.title = getString(R.string.library_name)
         view.apply{
 
-            val genres = resources.getStringArray(R.array.genre)
+            val genres = resources.getStringArray(R.array.game_genre)
             val spinner = view.findViewById<Spinner>(R.id.genre_spinner)
             val editTextName = view.findViewById<EditText>(R.id.library_name)
             val editTextDes = view.findViewById<EditText>(R.id.library_description)

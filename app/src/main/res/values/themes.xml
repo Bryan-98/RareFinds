@@ -21,5 +21,5 @@
 
     <style name="Theme.Rare_Finds.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
-    <style name="Theme.Rare_Finds.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+    <style name="Theme.Rare_Finds.PopupOverlay" parent="ThemeOverlay.AppCompat.Dark" />
 </resources>

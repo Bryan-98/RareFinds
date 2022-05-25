@@ -29,13 +29,25 @@
     <string name="cancel_category_name">Cancel</string>
     <string name="image_category">Category Image</string>
     <string name="collection_btn_des">Button to add to collection</string>
+
     <string-array name="genre">
         <item>Music</item>
-        <item>Video</item>
+        <item>Videos</item>
         <item>Games</item>
         <item>Video Games</item>
         <item>Computers</item>
-        <item>Phones</item>
+        <item>Comics</item>
+        <item>Novels</item>
+    </string-array>
+
+    <string-array name="game_genre">
+        <item>FPS</item>
+        <item>Platformer</item>
+        <item>Third Person</item>
+        <item>Shooter</item>
+        <item>Puzzle</item>
+        <item>Stealth</item>
+        <item>Rough</item>
     </string-array>
 
     <!--Login Strings-->
@@ -59,6 +71,11 @@
     <string name="btn_description">Button to add image to profile</string>
     <string name="sql_error">* Sorry use a different email or username.</string>
 
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <!--Signup String-->
+    <string name="new_password">New Password</string>
+    <string name="confirm_password">Confirm New Password</string>
+    <string name="submit">Submit</string>
+    <string name="pass_error">* Sorry your passwords do not match.</string>
+
 
 </resources>

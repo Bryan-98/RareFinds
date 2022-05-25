@@ -12,16 +12,20 @@
     android:paddingBottom="16dp"
     android:background="@color/teal_200">
 
-    <ImageView
+    <com.google.android.material.imageview.ShapeableImageView
         android:id="@+id/header_image"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:contentDescription="@string/header_image_des"
-        android:paddingTop="8dp"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:padding="2dp"
         android:adjustViewBounds="true"
+        android:contentDescription="@string/header_image_des"
         android:scaleType="fitXY"
+        app:shapeAppearance="@style/Circular"
+        app:strokeWidth="2dp"
+        app:strokeColor="@color/dark_grey"
         app:srcCompat="@drawable/ic_launcher_foreground"
-        tools:ignore="ImageContrastCheck" />
+        tools:ignore="ImageContrastCheck"
+        tools:srcCompat="@tools:sample/avatars" />
 
     <TextView
         android:id="@+id/header_username"
@@ -29,7 +33,6 @@
         android:layout_height="wrap_content"
         android:hint="@string/header_user"
         android:paddingTop="8dp"
-        android:textColor="@color/black"
         android:textColorHint="#004D40" />
 
     <TextView
@@ -37,6 +40,5 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="@string/header_email"
-        android:textColor="@color/black"
         android:textColorHint="#004D40" />
 </LinearLayout>

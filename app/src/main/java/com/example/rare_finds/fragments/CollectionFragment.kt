@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -35,11 +36,6 @@ class CollectionFragment : Fragment() {
         return inflater.inflate(R.layout.fragment_collection, container, false)
     }
 
-    override fun onPause() {
-        super.onPause()
-        view?.visibility = View.GONE
-    }
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         (activity as AppCompatActivity).supportActionBar?.title = getString(R.string.collection_name)
@@ -61,9 +57,13 @@ class CollectionFragment : Fragment() {
                 sharedUserPref(colId.colId)
                 val act = view.context as AppCompatActivity
                 val libFragment = LibraryFragment()
-                act.supportFragmentManager.beginTransaction().setCustomAnimations(R.anim.from_left,R.anim.from_left)
+                act.supportFragmentManager.beginTransaction().setCustomAnimations(R.anim.from_right, R.anim.from_left, android.R.anim.slide_in_left, android.R.anim.slide_out_right)
                     .replace(R.id.fragmentContainerView,libFragment).addToBackStack(null)
                     .commit()
+            }
+            override fun onLongItemClick(item: Serializable): Boolean{
+                Toast.makeText(view.context, "long click", Toast.LENGTH_SHORT).show()
+                return true
             }
         })
         recyclerView.adapter = adapter

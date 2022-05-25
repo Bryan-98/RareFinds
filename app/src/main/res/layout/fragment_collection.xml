@@ -7,16 +7,30 @@
     android:layout_height="match_parent"
     android:duration="@android:integer/config_shortAnimTime"
     android:slideEdge="right"
-    tools:context="edu.practice.utils.shared.com.example.rare_finds.fragments.SearchFragment">
+    tools:context="edu.practice.utils.shared.com.example.rare_finds.fragments.CollectionFragment">
+
+    <SearchView
+        android:id="@+id/searchView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/dark_grey"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/collectionView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="0dp"
+        android:longClickable="true"
+        android:focusable="true"
+        android:clickable="true"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/searchView"
+        tools:listitem="@layout/category_view" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/collectionFloatingBtn"
@@ -31,4 +45,6 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         tools:ignore="SpeakableTextPresentCheck,ImageContrastCheck,RedundantDescriptionCheck" />
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>

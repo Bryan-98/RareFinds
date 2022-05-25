@@ -9,9 +9,4 @@
     android:slideEdge="right"
     tools:context="edu.practice.utils.shared.com.example.rare_finds.fragments.SearchFragment">
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
-
 </androidx.constraintlayout.widget.ConstraintLayout >
