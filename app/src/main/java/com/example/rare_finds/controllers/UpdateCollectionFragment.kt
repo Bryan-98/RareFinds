@@ -8,7 +8,6 @@ import android.graphics.ImageDecoder
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
-import android.text.Editable
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -17,123 +16,126 @@ import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
-import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.Fragment
 import com.example.rare_finds.R
 import com.google.android.material.textfield.TextInputLayout
+import com.squareup.picasso.Picasso
 import edu.practice.utils.shared.com.example.rare_finds.fragments.CollectionFragment
+import edu.practice.utils.shared.com.example.rare_finds.models.Collection
 import edu.practice.utils.shared.com.example.rare_finds.sqlconnection.BlobConnection
 import edu.practice.utils.shared.com.example.rare_finds.sqlconnection.ConnectionHelper
 import edu.practice.utils.shared.com.example.rare_finds.sqlconnection.DatabaseHelper
 import kotlinx.coroutines.*
+import java.io.Serializable
+import kotlin.properties.Delegates
 
-class AddingCollectionFragment : DialogFragment() {
+
+private const val ARG_PARAM1 = "collectionInfo"
+
+class UpdateCollectionFragment : Fragment() {
     private val con = ConnectionHelper().dbConn()
     private val db = con?.let { DatabaseHelper(it) }
     private val storageCon = BlobConnection()
-    private val table = "Collection"
-    private val col = "CollName,CollDesc,CollGenre,UserId,ImageUrl"
+    private lateinit var name: String
+    private lateinit var des: String
+    private lateinit var imageUrl: String
+    private var colId by Delegates.notNull<Int>()
     private lateinit var galleryLauncher: ActivityResultLauncher<Intent>
-    private lateinit var imageUrl :String;
     private lateinit var imageUri: Uri
     private lateinit var cont: ContentResolver
-    private lateinit var til : TextInputLayout;
-    private lateinit var genre: String
-    private lateinit var name : Editable;
-    private lateinit var des : Editable;
+    private lateinit var til: TextInputLayout;
+    private lateinit var addImageIcon: ImageButton;
+
+    private var colInfo: Serializable? = null
+
+    @RequiresApi(Build.VERSION_CODES.P)
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        arguments?.let {
+            colInfo = it.getSerializable(ARG_PARAM1)
+            val col = colInfo as Collection
+            name = col.colName
+            des = col.colDescription
+            imageUrl = col.imageUrl
+            colId = col.colId
+        }
+    }
 
     override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
+        inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_adding_collection, container, false)
+        return inflater.inflate(R.layout.fragment_updata_collection, container, false)
     }
 
     @OptIn(DelicateCoroutinesApi::class)
     @RequiresApi(Build.VERSION_CODES.P)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        (activity as AppCompatActivity).supportActionBar?.title = getString(R.string.collection_name)
-        view.apply{
-
-            val genres = resources.getStringArray(R.array.genre)
-            val spinner = view.findViewById<Spinner>(R.id.genre_spinner)
+        (activity as AppCompatActivity).supportActionBar?.title = getString(R.string.update_Col)
+        view.apply {
             val editTextName = view.findViewById<EditText>(R.id.collection_name)
             val editTextDes = view.findViewById<EditText>(R.id.collection_description)
-            val img = view.findViewById<ImageButton>(R.id.library_image_selected)
-            val addImageIcon = findViewById<ImageView>(R.id.add_image_icon)
+            addImageIcon = findViewById<ImageButton>(R.id.col_image_selected)
 
-            name = editTextName.text
-            des = editTextDes.text
-
-            ArrayAdapter(this.context, R.layout.dropdown_item,genres).also { adapter ->
-                adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-                spinner.adapter = adapter
-                spinner.onItemSelectedListener = object :
-
-                    AdapterView.OnItemSelectedListener{
-                    override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
-                        genre = genres[p2]
-                    }
-
-                    override fun onNothingSelected(p0: AdapterView<*>?) {
-                    }
-
-                }
-            }
+            editTextName.setText(name)
+            editTextDes.setText(des)
+            Picasso.get().load(imageUrl).fit().into(addImageIcon)
 
             galleryLauncher =
                 registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
                     if (result.resultCode == Activity.RESULT_OK) {
-                        val source = result.data?.data?.let { ImageDecoder.createSource((activity as AppCompatActivity).contentResolver, it) }
+                        val source = result.data?.data?.let {
+                            ImageDecoder.createSource(
+                                (activity as AppCompatActivity).contentResolver, it)
+                        }
                         val bitmap = source?.let { ImageDecoder.decodeBitmap(it) }
-                        img.setImageBitmap(bitmap)
-                        addImageIcon.visibility = View.GONE
+                        addImageIcon.setImageBitmap(bitmap)
                         imageUri = result.data?.data!!
                         cont = (activity as AppCompatActivity).contentResolver
                     }
                 }
 
-            img.setOnClickListener{
+            addImageIcon.setOnClickListener {
                 val cameraIntent = Intent(Intent.ACTION_PICK)
                 cameraIntent.type = "image/*"
                 galleryLauncher.launch(cameraIntent)
             }
 
-            val closeBtn = view.findViewById<ImageButton>(R.id.collection_cancel_btn)
-            closeBtn.setOnClickListener{
-                dismiss()
+            val deleteBtn = view.findViewById<Button>(R.id.delete_btn)
+            deleteBtn.setOnClickListener {
+                if (con != null) {
+                    if(db?.deleteEntry("Library", "CollId", colId) == true && db.deleteEntry("Collection", "CollId", colId)){
+                        val colFragment = CollectionFragment()
+                        (activity as AppCompatActivity).supportFragmentManager.beginTransaction()
+                            .setCustomAnimations(R.anim.from_right, R.anim.from_left, android.R.anim.slide_in_left, android.R.anim.slide_out_right)
+                            .replace(R.id.fragmentContainerView,colFragment).addToBackStack(null)
+                            .commit()
+                    }
+                }
             }
 
-            val submitBtn = view.findViewById<Button>(R.id.collection_add_btn)
-            submitBtn.setOnClickListener {
+            val updateBtn = view.findViewById<Button>(R.id.update_btn)
+            updateBtn.setOnClickListener {
                 clearAllInputs(view)
-                if(checkAllInputs(view)){
+                if (checkAllInputs(view)) {
                     if (con != null) {
-                        val userId = loadUserData()
-                        setImageLink(img)
-                        db?.insertTable(table, col, "'${name}','${des}','${genre}', $userId,'${imageUrl}'")
-                    }
-                    GlobalScope.launch(Dispatchers.IO){
+                        setImageLink(addImageIcon)
+                        name = editTextName.text.toString()
+                        des = editTextDes.text.toString()
+                        db?.updateColTable(name, des, imageUrl, colId)
 
-                            withContext(Dispatchers.Default) {
-                                replaceFragment(CollectionFragment())
-                            }
-                            withContext(Dispatchers.Default) { dismiss() }
                     }
+                    val colFragment = CollectionFragment()
+                    (activity as AppCompatActivity).supportFragmentManager.beginTransaction()
+                        .setCustomAnimations(R.anim.from_right, R.anim.from_left, android.R.anim.slide_in_left, android.R.anim.slide_out_right)
+                        .replace(R.id.fragmentContainerView,colFragment).addToBackStack(null)
+                        .commit()
                 }
             }
         }
     }
 
-    private fun replaceFragment(fragment: Fragment){
-
-        val fragmentManager = (activity as AppCompatActivity).supportFragmentManager
-        val fragmentTrans = fragmentManager.beginTransaction()
-        fragmentTrans.replace(R.id.fragmentContainerView,fragment)
-        fragmentTrans.commit()
-    }
 
     @OptIn(DelicateCoroutinesApi::class)
     @RequiresApi(Build.VERSION_CODES.P)
@@ -144,26 +146,23 @@ class AddingCollectionFragment : DialogFragment() {
                 imageUrl = BlobConnection().returnImageUrl("collection", "default")
             }
             else -> {
-                val userCount = db?.checkCount("CollId", "Collection")
-                if (userCount != null) {
-                    if(userCount > 0){
-                        userCount.plus(1)
-                    }
-                }
                 GlobalScope.launch(Dispatchers.IO) {
                     storageCon.blobConnection(
                         imageUri,
                         cont,
                         "collection",
-                        "userid_${loadUserData()}_colid_${userCount}_collection_image"
+                        "userid_${loadUserData()}_colid_${colId}_collection_image"
                     )
                 }
-                imageUrl = storageCon.returnImageUrl("collection", "userid_${loadUserData()}_colid_${userCount}_collection_image")
+                imageUrl = storageCon.returnImageUrl(
+                    "collection",
+                    "userid_${loadUserData()}_colid_${colId}_collection_image"
+                )
             }
         }
     }
 
-    private fun checkAllInputs(view: View):Boolean {
+    private fun checkAllInputs(view: View): Boolean {
         var count = 0
         if (name.isBlank()) {
             til = view.findViewById(R.id.input_collection_name);
@@ -177,24 +176,24 @@ class AddingCollectionFragment : DialogFragment() {
             til.error = "Enter a Description";
             count++
         }
-        if(count > 0) return false
+        if (count > 0) return false
 
         return true
     }
 
     private fun clearAllInputs(view: View) {
 
-        if(name.isNotBlank()){
+        if (name.isNotBlank()) {
             til = view.findViewById(R.id.input_collection_name);
             til.isErrorEnabled = false
         }
-        if(des.isNotBlank()){
+        if (des.isNotBlank()) {
             til = view.findViewById(R.id.input_collection_description);
             til.isErrorEnabled = false
         }
     }
 
-    private fun loadUserData():Int{
+    private fun loadUserData(): Int {
         val sp = this.activity?.getSharedPreferences("userInfo", Context.MODE_PRIVATE)
         if (sp != null) {
             return sp.getInt("userId", 0)

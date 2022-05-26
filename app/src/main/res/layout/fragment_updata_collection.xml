@@ -3,11 +3,11 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="match_parent"
     tools:context="edu.practice.utils.shared.com.example.rare_finds.controllers.AddingCollectionFragment">
 
     <ImageButton
-        android:id="@+id/library_image_selected"
+        android:id="@+id/col_image_selected"
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:padding="2dp"
@@ -34,7 +34,7 @@
         app:errorEnabled="true"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/library_image_selected" >
+        app:layout_constraintTop_toBottomOf="@+id/col_image_selected" >
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/collection_name"
@@ -71,59 +71,28 @@
     </com.google.android.material.textfield.TextInputLayout>
 
 
-    <Spinner
-        android:id="@+id/genre_spinner"
-        android:layout_width="250dp"
-        android:layout_height="wrap_content"
-        android:minHeight="48dp"
-        android:layout_marginTop="60dp"
-        android:layout_marginStart="80dp"
-        android:layout_marginEnd="80dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/input_collection_description"
-        tools:ignore="SpeakableTextPresentCheck" />
-
     <Button
-        android:id="@+id/collection_add_btn"
+        android:id="@+id/update_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="80dp"
         android:layout_marginTop="40dp"
         android:layout_marginEnd="80dp"
         android:layout_marginBottom="40dp"
-        android:text="@string/add_category_name"
+        android:text="@string/update"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/genre_spinner"
+        app:layout_constraintTop_toBottomOf="@+id/input_collection_description"
         tools:ignore="TextContrastCheck" />
 
-    <ImageButton
-        android:id="@+id/collection_cancel_btn"
-        android:layout_width="48dp"
-        android:layout_height="48dp"
-        android:layout_marginTop="24dp"
-        android:layout_marginEnd="24dp"
-        android:background="#00000000"
-        android:contentDescription="@string/img_description"
-
-        android:src="@drawable/ic_baseline_close"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:ignore="ImageContrastCheck" />
-
-    <ImageView
-        android:id="@+id/add_image_icon"
+    <Button
+        android:id="@+id/delete_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:contentDescription="@string/btn_description"
-        android:src="@drawable/ic_baseline_add_photo_alternate"
-        app:layout_constraintBottom_toBottomOf="@+id/library_image_selected"
-        app:layout_constraintEnd_toEndOf="@+id/library_image_selected"
-        app:layout_constraintStart_toStartOf="@+id/library_image_selected"
-        app:layout_constraintTop_toTopOf="@+id/library_image_selected"
-        tools:ignore="RedundantDescriptionCheck" />
+        android:backgroundTint="@color/red"
+        android:text="@string/delete"
+        app:layout_constraintEnd_toStartOf="@+id/update_btn"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/update_btn"
+        tools:ignore="TextContrastCheck" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

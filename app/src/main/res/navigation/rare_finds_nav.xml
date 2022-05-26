@@ -15,6 +15,9 @@
         <action
             android:id="@+id/action_collectionFragment_to_addingCollectionFragment"
             app:destination="@id/addingCollectionFragment" />
+        <action
+            android:id="@+id/action_collectionFragment_to_updataCollectionFragment"
+            app:destination="@id/updataCollectionFragment" />
     </fragment>
     <fragment
         android:id="@+id/libraryFragment"
@@ -48,4 +51,14 @@
         android:name="edu.practice.utils.shared.com.example.rare_finds.fragments.UpDatingUserFragment"
         android:label="fragment_up_dating_user"
         tools:layout="@layout/fragment_up_dating_user" />
+    <fragment
+        android:id="@+id/updataCollectionFragment"
+        android:name="com.example.rare_finds.UpdateCollectionFragment"
+        android:label="fragment_updata_collection"
+        tools:layout="@layout/fragment_updata_collection" />
+    <fragment
+        android:id="@+id/updateLibraryFragment"
+        android:name="com.example.rare_finds.UpdateLibraryFragment"
+        android:label="fragment_update_library"
+        tools:layout="@layout/fragment_update_library" />
 </navigation>

@@ -98,6 +98,36 @@ class DatabaseHelper(con: Connection){
         return true
     }
 
+    fun updateColTable(name: String, des: String, img: String, id: Int):Boolean {
+        val sqlQuery = "UPDATE [dbo].[Collection] SET CollName = '$name', CollDesc = '$des', ImageUrl = '$img' WHERE CollId = $id"
+        with(conn) {
+            try{
+                createStatement().execute(sqlQuery)
+            } catch (ex: SQLException){
+                println("--------------------------------------------------")
+                println(ex.message)
+                println("--------------------------------------------------")
+                return false
+            }
+        }
+        return true
+    }
+
+    fun deleteEntry(table: String, condition: String, id: Int):Boolean {
+        val sqlQuery = "DELETE FROM [dbo].[$table] WHERE $condition = $id"
+        with(conn) {
+            try{
+                createStatement().execute(sqlQuery)
+            } catch (ex: SQLException){
+                println("--------------------------------------------------")
+                println(ex.message)
+                println("--------------------------------------------------")
+                return false
+            }
+        }
+        return true
+    }
+
     fun checkUser(userName: String, pass: String): Serializable{
         val sqlQuery = "SELECT * FROM [dbo].[User] WHERE EncryptedPass = '${pass}' AND UserName = '${userName}'"
         try {
@@ -136,4 +166,5 @@ class DatabaseHelper(con: Connection){
         }
         return 0
     }
+
 }

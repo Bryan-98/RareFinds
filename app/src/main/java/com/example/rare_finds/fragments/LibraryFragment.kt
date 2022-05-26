@@ -10,9 +10,12 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.rare_finds.R
+import com.example.rare_finds.UpdateLibraryFragment
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import edu.practice.utils.shared.com.example.rare_finds.controllers.AddingLibraryFragment
 import edu.practice.utils.shared.com.example.rare_finds.controllers.LibRecyclerAdapter
+import edu.practice.utils.shared.com.example.rare_finds.controllers.UpdateCollectionFragment
+import edu.practice.utils.shared.com.example.rare_finds.models.Collection
 import edu.practice.utils.shared.com.example.rare_finds.models.Library
 import java.io.Serializable
 import kotlin.properties.Delegates
@@ -49,10 +52,25 @@ class LibraryFragment : Fragment() {
         adapter = LibRecyclerAdapter(colId)
         layoutManager = LinearLayoutManager(this.context)
         recyclerView.layoutManager = layoutManager
+        val act = view.context as AppCompatActivity
         adapter.setOnItemClickListener(object: LibRecyclerAdapter.OnItemClickListener {
             override fun onItemClick(item: Serializable) {
                 val libId = item as Library
                 sharedUserPref(libId.libId)
+            }
+            override fun onLongItemClick(item: Serializable): Boolean{
+
+                val libBundle = Bundle()
+                val libId = item as Library
+                libBundle.putSerializable("libraryInfo", libId)
+
+                val updateFrag = UpdateLibraryFragment()
+                updateFrag.arguments = libBundle
+                act.supportFragmentManager.beginTransaction()
+                    .setCustomAnimations(R.anim.from_right, R.anim.from_left, android.R.anim.slide_in_left, android.R.anim.slide_out_right)
+                    .replace(R.id.fragmentContainerView,updateFrag).addToBackStack(null)
+                    .commit()
+                return true
             }
         })
         recyclerView.adapter = adapter

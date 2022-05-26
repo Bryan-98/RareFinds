@@ -6,7 +6,6 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -14,6 +13,7 @@ import edu.practice.utils.shared.com.example.rare_finds.controllers.AddingCollec
 import com.example.rare_finds.R
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import edu.practice.utils.shared.com.example.rare_finds.controllers.RecyclerAdapter
+import edu.practice.utils.shared.com.example.rare_finds.controllers.UpdateCollectionFragment
 import edu.practice.utils.shared.com.example.rare_finds.models.Collection
 import java.io.Serializable
 import kotlin.properties.Delegates
@@ -51,18 +51,26 @@ class CollectionFragment : Fragment() {
         adapter = RecyclerAdapter(userId)
         layoutManager = LinearLayoutManager(this.context)
         recyclerView.layoutManager = layoutManager
+        val act = view.context as AppCompatActivity
         adapter.setOnItemClickListener(object: RecyclerAdapter.OnItemClickListener {
             override fun onItemClick(item: Serializable) {
                 val colId = item as Collection
                 sharedUserPref(colId.colId)
-                val act = view.context as AppCompatActivity
                 val libFragment = LibraryFragment()
                 act.supportFragmentManager.beginTransaction().setCustomAnimations(R.anim.from_right, R.anim.from_left, android.R.anim.slide_in_left, android.R.anim.slide_out_right)
                     .replace(R.id.fragmentContainerView,libFragment).addToBackStack(null)
                     .commit()
             }
             override fun onLongItemClick(item: Serializable): Boolean{
-                Toast.makeText(view.context, "long click", Toast.LENGTH_SHORT).show()
+                val colBundle = Bundle()
+                val colId = item as Collection
+                colBundle.putSerializable("collectionInfo", colId)
+                val updateFrag = UpdateCollectionFragment()
+                updateFrag.arguments = colBundle
+                act.supportFragmentManager.beginTransaction()
+                    .setCustomAnimations(R.anim.from_right, R.anim.from_left, android.R.anim.slide_in_left, android.R.anim.slide_out_right)
+                    .replace(R.id.fragmentContainerView,updateFrag).addToBackStack(null)
+                    .commit()
                 return true
             }
         })

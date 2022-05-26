@@ -30,6 +30,7 @@ class LibRecyclerAdapter(colId : Int): RecyclerView.Adapter<LibRecyclerAdapter.V
 
     interface OnItemClickListener{
         fun onItemClick(item: Serializable)
+        fun onLongItemClick(item: Serializable): Boolean
     }
 
     fun setOnItemClickListener(listener : OnItemClickListener){
@@ -59,6 +60,9 @@ class LibRecyclerAdapter(colId : Int): RecyclerView.Adapter<LibRecyclerAdapter.V
         init {
             itemView.setOnClickListener {
                 listener.onItemClick(libList[adapterPosition])
+            }
+            itemView.setOnLongClickListener {
+                listener.onLongItemClick(libList[adapterPosition])
             }
         }
     }
