@@ -1,4 +1,4 @@
-package edu.practice.utils.shared.com.example.rare_finds.controllers
+package com.example.rare_finds.controllers
 
 import android.annotation.SuppressLint
 import android.app.Activity
@@ -9,21 +9,24 @@ import android.graphics.ImageDecoder
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
+import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.*
+import android.widget.Button
+import android.widget.EditText
+import android.widget.ImageButton
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
-import androidx.fragment.app.Fragment
 import com.example.rare_finds.R
 import com.google.android.material.textfield.TextInputLayout
 import com.squareup.picasso.Picasso
 import edu.practice.utils.shared.com.example.rare_finds.fragments.CollectionFragment
 import edu.practice.utils.shared.com.example.rare_finds.fragments.LibraryFragment
 import edu.practice.utils.shared.com.example.rare_finds.models.Collection
+import edu.practice.utils.shared.com.example.rare_finds.models.Library
 import edu.practice.utils.shared.com.example.rare_finds.sqlconnection.BlobConnection
 import edu.practice.utils.shared.com.example.rare_finds.sqlconnection.ConnectionHelper
 import edu.practice.utils.shared.com.example.rare_finds.sqlconnection.DatabaseHelper
@@ -31,35 +34,39 @@ import kotlinx.coroutines.*
 import java.io.Serializable
 import kotlin.properties.Delegates
 
+private const val ARG_PARAM1 = "libraryInfo"
 
-private const val ARG_PARAM1 = "collectionInfo"
-
-class UpdateCollectionFragment : Fragment() {
+class UpdateLibraryFragment : Fragment() {
     private val con = ConnectionHelper().dbConn()
     private val db = con?.let { DatabaseHelper(it) }
     private val storageCon = BlobConnection()
+    private var libInfo: Serializable? = null
+    private lateinit var imageUrl: String
     private lateinit var name: String
     private lateinit var des: String
-    private lateinit var imageUrl: String
-    private var colId by Delegates.notNull<Int>()
+    private var price by Delegates.notNull<Int>()
+    private var year by Delegates.notNull<Int>()
+    private lateinit var pub: String
+    private var libId by Delegates.notNull<Int>()
     private lateinit var galleryLauncher: ActivityResultLauncher<Intent>
     private lateinit var imageUri: Uri
     private lateinit var cont: ContentResolver
     private lateinit var til: TextInputLayout;
     private lateinit var addImageIcon: ImageButton;
 
-    private var colInfo: Serializable? = null
-
-    @RequiresApi(Build.VERSION_CODES.P)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
-            colInfo = it.getSerializable(ARG_PARAM1)
-            val col = colInfo as Collection
-            name = col.colName
-            des = col.colDescription
-            imageUrl = col.imageUrl
-            colId = col.colId
+            libInfo = it.getSerializable(ARG_PARAM1)
+            val lib = libInfo as Library
+            name = lib.libName
+            des = lib.libDescription
+            price = lib.libPrice
+            year = lib.libYear
+            pub = lib.libPublisher
+            libId = lib.libId
+            imageUrl = lib.imageUrl
+
         }
     }
 
@@ -67,22 +74,29 @@ class UpdateCollectionFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_update_collection, container, false)
+        return inflater.inflate(R.layout.fragment_update_library, container, false)
     }
 
     @OptIn(DelicateCoroutinesApi::class)
     @RequiresApi(Build.VERSION_CODES.P)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        (activity as AppCompatActivity).supportActionBar?.title = getString(R.string.update_Col)
+        (activity as AppCompatActivity).supportActionBar?.title = getString(R.string.update_Lib)
         view.apply {
-            val editTextName = view.findViewById<EditText>(R.id.collection_name)
-            val editTextDes = view.findViewById<EditText>(R.id.collection_description)
-            addImageIcon = findViewById(R.id.col_image_selected)
+            val editTextName = view.findViewById<EditText>(R.id.library_name)
+            val editTextDes = view.findViewById<EditText>(R.id.library_description)
+            val editTextPrice = view.findViewById<EditText>(R.id.library_price)
+            val editTextYear = view.findViewById<EditText>(R.id.library_year)
+            val editTextPub = view.findViewById<EditText>(R.id.library_publisher)
+            addImageIcon = findViewById(R.id.libray_image_selected)
 
             editTextName.setText(name)
             editTextDes.setText(des)
+            editTextPrice.setText(price.toString())
+            editTextYear.setText(year.toString())
+            editTextPub.setText(pub)
             Picasso.get().load(imageUrl).fit().into(addImageIcon)
+
 
             galleryLauncher =
                 registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
@@ -108,10 +122,10 @@ class UpdateCollectionFragment : Fragment() {
             val deleteBtn = view.findViewById<Button>(R.id.delete_btn)
             deleteBtn.setOnClickListener {
                 if (con != null) {
-                    if(db?.deleteEntry("Library", "CollId", colId) == true && db.deleteEntry("Collection", "CollId", colId)){
+                    if(db?.deleteEntry("Library", "LibId", libId) == true){
                         GlobalScope.launch(Dispatchers.IO){
                             withContext(Dispatchers.Default) {
-                                replaceFragment(CollectionFragment())
+                                replaceFragment(LibraryFragment())
                             }
                         }
                     }
@@ -125,12 +139,14 @@ class UpdateCollectionFragment : Fragment() {
                     if (con != null) {
                         name = editTextName.text.toString()
                         des = editTextDes.text.toString()
-                        db?.updateColTable(name, des, imageUrl, colId)
-
+                        price = editTextPrice.text.toString().toInt()
+                        year = editTextYear.text.toString().toInt()
+                        pub = editTextPub.text.toString()
+                        db?.updateLibTable(name, des, year, price, pub, imageUrl, libId)
                     }
                     GlobalScope.launch(Dispatchers.IO){
                         withContext(Dispatchers.Default) {
-                            replaceFragment(CollectionFragment())
+                            replaceFragment(LibraryFragment())
                         }
                     }
                 }
@@ -158,13 +174,13 @@ class UpdateCollectionFragment : Fragment() {
                 storageCon.blobConnection(
                     imageUri,
                     cont,
-                    "collection",
-                    "userid_${loadUserData()}_colid_${colId}_collection_image"
+                    "library",
+                    "userid_${loadUserData()}_libid_${libId}_library_image"
                 )
             }
             imageUrl = storageCon.returnImageUrl(
-                "collection",
-                "userid_${loadUserData()}_colid_${colId}_collection_image"
+                "library",
+                "userid_${loadUserData()}_libid_${libId}_library_image"
             )
         }
     }
@@ -172,15 +188,33 @@ class UpdateCollectionFragment : Fragment() {
     private fun checkAllInputs(view: View): Boolean {
         var count = 0
         if (name.isBlank()) {
-            til = view.findViewById(R.id.input_collection_name);
+            til = view.findViewById(R.id.input_library_name);
             til.isErrorEnabled = true
             til.error = "Enter a Name";
             count++
         }
         if (des.isBlank()) {
-            til = view.findViewById(R.id.input_collection_description);
+            til = view.findViewById(R.id.input_library_description);
             til.isErrorEnabled = true
             til.error = "Enter a Description";
+            count++
+        }
+        if (year.equals(null)) {
+            til = view.findViewById(R.id.input_library_year);
+            til.isErrorEnabled = true
+            til.error = "Enter a Year";
+            count++
+        }
+        if (price.equals(null)) {
+            til = view.findViewById(R.id.input_library_price);
+            til.isErrorEnabled = true
+            til.error = "Enter a Price";
+            count++
+        }
+        if (pub.isBlank()) {
+            til = view.findViewById(R.id.input_library_publisher);
+            til.isErrorEnabled = true
+            til.error = "Enter a Publisher";
             count++
         }
         if (count > 0) return false
@@ -191,11 +225,23 @@ class UpdateCollectionFragment : Fragment() {
     private fun clearAllInputs(view: View) {
 
         if (name.isNotBlank()) {
-            til = view.findViewById(R.id.input_collection_name);
+            til = view.findViewById(R.id.input_library_name);
             til.isErrorEnabled = false
         }
         if (des.isNotBlank()) {
-            til = view.findViewById(R.id.input_collection_description);
+            til = view.findViewById(R.id.input_library_description);
+            til.isErrorEnabled = false
+        }
+        if (price.equals(null)) {
+            til = view.findViewById(R.id.input_library_price);
+            til.isErrorEnabled = false
+        }
+        if (year.equals(null)) {
+            til = view.findViewById(R.id.input_library_year);
+            til.isErrorEnabled = false
+        }
+        if (pub.isNotBlank()) {
+            til = view.findViewById(R.id.input_library_publisher);
             til.isErrorEnabled = false
         }
     }

@@ -5,7 +5,7 @@
     android:id="@+id/upDatingUser"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="edu.practice.utils.shared.com.example.rare_finds.fragments.UpDatingUserFragment" >
+    tools:context="edu.practice.utils.shared.com.example.rare_finds.controllers.UpdatingUserFragment" >
 
     <ImageButton
         android:id="@+id/imageButton"
@@ -17,8 +17,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:ignore="SpeakableTextPresentCheck"
-        android:scaleType="fitXY"
-        tools:src="@tools:sample/avatars" />
+        android:scaleType="fitXY" />
 
     <com.google.android.material.textfield.TextInputLayout
         style ="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"

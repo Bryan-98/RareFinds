@@ -3,30 +3,29 @@ package edu.practice.utils.shared.com.example.rare_finds.controllers
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.TextView
-import android.widget.Toast
+import android.widget.*
 import androidx.recyclerview.widget.RecyclerView
 import com.example.rare_finds.R
 import com.squareup.picasso.Picasso
 import edu.practice.utils.shared.com.example.rare_finds.models.Collection
-import edu.practice.utils.shared.com.example.rare_finds.sqlconnection.BlobConnection
 import edu.practice.utils.shared.com.example.rare_finds.sqlconnection.ConnectionHelper
 import edu.practice.utils.shared.com.example.rare_finds.sqlconnection.DatabaseHelper
 import java.io.Serializable
 
-class RecyclerAdapter(userID : Int): RecyclerView.Adapter<RecyclerAdapter.ViewHolder>() {
+class RecyclerAdapter(userID : Int): RecyclerView.Adapter<RecyclerAdapter.ViewHolder>(), Filterable{
 
-    private lateinit var colList : ArrayList<Collection>
+    private var colList : ArrayList<Collection>
+    private var colListFil : ArrayList<Collection>
     private lateinit var listener : OnItemClickListener
+    private var col : ArrayList<Collection>
 
     init {
         val con = ConnectionHelper().dbConn()
         val db = con?.let { DatabaseHelper(it) }
-        val col = db?.fillCollectionList(userID)
-        if (col != null) {
-            colList = col
-        }
+        col = db?.fillCollectionList(userID)!!
+        colList = col
+        colListFil = col
+        notifyDataSetChanged()
     }
 
     interface OnItemClickListener{
@@ -39,7 +38,7 @@ class RecyclerAdapter(userID : Int): RecyclerView.Adapter<RecyclerAdapter.ViewHo
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val v = LayoutInflater.from(parent.context).inflate(R.layout.category_view, parent, false)
+        val v = LayoutInflater.from(parent.context).inflate(R.layout.recycler_item_view, parent, false)
         return ViewHolder(v, listener)
     }
 
@@ -70,4 +69,46 @@ class RecyclerAdapter(userID : Int): RecyclerView.Adapter<RecyclerAdapter.ViewHo
             }
         }
     }
+
+    override fun getFilter(): Filter {
+        return object: Filter(){
+            override fun performFiltering(p0: CharSequence?): FilterResults {
+                val filterResults = FilterResults()
+                if(p0 == null || p0.length < 0){
+                    filterResults.count = colListFil.size
+                    filterResults.values = colListFil
+                }else{
+                    val searchChr = p0.toString().lowercase()
+                    val itemModel = ArrayList<Collection>()
+
+                    when(searchChr){
+                        "any" -> {
+                            col.forEach { itemModel.add(it) }
+                        }
+                        else -> {
+                            for (item in colListFil) {
+                                if (item.colName.lowercase()
+                                        .contains(searchChr) || item.colDescription.lowercase()
+                                        .contains(searchChr) || item.genre.lowercase().contains(searchChr)
+                                ) {
+                                    itemModel.add(item)
+                                }
+                            }
+                        }
+                    }
+                    filterResults.count = itemModel.size
+                    filterResults.values = itemModel
+                }
+                return filterResults
+            }
+
+            override fun publishResults(p0: CharSequence?, filterResults: FilterResults?) {
+                colList = filterResults!!.values as ArrayList<Collection>
+                notifyDataSetChanged()
+            }
+
+        }
+    }
+
+
 }

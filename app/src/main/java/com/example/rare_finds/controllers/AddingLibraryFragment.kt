@@ -156,12 +156,7 @@ class AddingLibraryFragment : DialogFragment() {
                 imageUrl = BlobConnection().returnImageUrl("library", "default")
             }
             else -> {
-                val userCount = db?.checkCount("LibId", "Library")
-                if (userCount != null) {
-                    if(userCount > 0){
-                        userCount.plus(1)
-                    }
-                }
+                val userCount = db?.checkCount("LibId", "Library")?.plus(1)
                 GlobalScope.launch(Dispatchers.IO) {
                     storageCon.blobConnection(
                         imageUri,

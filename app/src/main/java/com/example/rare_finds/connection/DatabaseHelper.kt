@@ -1,6 +1,7 @@
 package edu.practice.utils.shared.com.example.rare_finds.sqlconnection
 
 import edu.practice.utils.shared.com.example.rare_finds.models.Collection
+import edu.practice.utils.shared.com.example.rare_finds.models.Comment
 import edu.practice.utils.shared.com.example.rare_finds.models.Library
 import edu.practice.utils.shared.com.example.rare_finds.models.User
 import java.io.Serializable
@@ -12,6 +13,7 @@ class DatabaseHelper(con: Connection){
     private val conn = con
     private val col = arrayListOf<Collection>()
     private val lib = arrayListOf<Library>()
+    private val com = arrayListOf<Comment>()
 
     fun fillCollectionList(userId : Int): ArrayList<Collection>{
 
@@ -68,6 +70,33 @@ class DatabaseHelper(con: Connection){
         return lib
     }
 
+    fun fillCommentList(libName : String): ArrayList<Comment>{
+
+        val sql = "SELECT * FROM [dbo].[Comments] WHERE LibName = '$libName'"
+        try {
+            val rs = conn.createStatement()?.executeQuery(sql)
+            if (rs != null) {
+                while (rs.next()) {
+                    com.add(
+                        Comment(
+                            rs.getInt("ComId"),
+                            rs.getString("LibName"),
+                            rs.getString("UserName"),
+                            rs.getString("Comment"),
+                            rs.getDate("TimePosted"),
+                            rs.getInt("Rating"),
+                            rs.getString("UserImage")
+                        )
+                    )
+                }
+            }
+        } catch (ex: SQLException) {
+            // handle any errors
+            ex.printStackTrace()
+        }
+        return com
+    }
+
     fun insertTable(table: String, col: String, values: String):Boolean {
         val sqlQuery = "INSERT INTO $table ($col) VALUES ($values)"
         with(conn) {
@@ -100,6 +129,21 @@ class DatabaseHelper(con: Connection){
 
     fun updateColTable(name: String, des: String, img: String, id: Int):Boolean {
         val sqlQuery = "UPDATE [dbo].[Collection] SET CollName = '$name', CollDesc = '$des', ImageUrl = '$img' WHERE CollId = $id"
+        with(conn) {
+            try{
+                createStatement().execute(sqlQuery)
+            } catch (ex: SQLException){
+                println("--------------------------------------------------")
+                println(ex.message)
+                println("--------------------------------------------------")
+                return false
+            }
+        }
+        return true
+    }
+
+    fun updateLibTable(name: String, des: String, year:Int, price: Int, pub: String, img: String, id: Int):Boolean {
+        val sqlQuery = "UPDATE [dbo].[Library] SET LibName = '$name',LibDesc = '$des',LibYear = $year, LibPrice = $price, LibPublisher = '$pub', ImageUrl = '$img' WhERE LibId = $id"
         with(conn) {
             try{
                 createStatement().execute(sqlQuery)

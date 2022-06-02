@@ -9,15 +9,30 @@
     android:slideEdge="right"
     tools:context="edu.practice.utils.shared.com.example.rare_finds.fragments.CollectionFragment">
 
-    <SearchView
-        android:id="@+id/searchView"
+    <LinearLayout
+        android:id="@+id/sear"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/dark_grey"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:orientation="horizontal">
+
+        <Spinner
+            android:id="@+id/spinner2"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1" />
+
+        <SearchView
+            android:id="@+id/searchView1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@color/dark_grey"
+            app:layout_constraintEnd_toEndOf="parent"/>
+
+    </LinearLayout>
+
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/collectionView"
@@ -29,8 +44,8 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/searchView"
-        tools:listitem="@layout/category_view" />
+        app:layout_constraintTop_toBottomOf="@+id/sear"
+        tools:listitem="@layout/recycler_item_view" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/collectionFloatingBtn"

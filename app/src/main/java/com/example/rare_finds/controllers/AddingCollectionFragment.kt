@@ -144,12 +144,7 @@ class AddingCollectionFragment : DialogFragment() {
                 imageUrl = BlobConnection().returnImageUrl("collection", "default")
             }
             else -> {
-                val userCount = db?.checkCount("CollId", "Collection")
-                if (userCount != null) {
-                    if(userCount > 0){
-                        userCount.plus(1)
-                    }
-                }
+                val userCount = db?.checkCount("CollId", "Collection")?.plus(1)
                 GlobalScope.launch(Dispatchers.IO) {
                     storageCon.blobConnection(
                         imageUri,
@@ -168,13 +163,13 @@ class AddingCollectionFragment : DialogFragment() {
         if (name.isBlank()) {
             til = view.findViewById(R.id.input_collection_name);
             til.isErrorEnabled = true
-            til.error = "Enter a Name";
+            til.error = "Enter a Name"
             count++
         }
         if (des.isBlank()) {
             til = view.findViewById(R.id.input_collection_description);
             til.isErrorEnabled = true
-            til.error = "Enter a Description";
+            til.error = "Enter a Description"
             count++
         }
         if(count > 0) return false

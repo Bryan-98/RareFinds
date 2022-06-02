@@ -1,5 +1,6 @@
-package edu.practice.utils.shared.com.example.rare_finds.fragments
+package edu.practice.utils.shared.com.example.rare_finds.controllers
 
+import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.ContentResolver
 import android.content.Context
@@ -22,15 +23,16 @@ import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import com.example.rare_finds.R
 import com.google.android.material.textfield.TextInputLayout
+import com.squareup.picasso.Picasso
+import edu.practice.utils.shared.com.example.rare_finds.fragments.CollectionFragment
+import edu.practice.utils.shared.com.example.rare_finds.fragments.LibraryFragment
 import edu.practice.utils.shared.com.example.rare_finds.sqlconnection.BlobConnection
 import edu.practice.utils.shared.com.example.rare_finds.sqlconnection.ConnectionHelper
 import edu.practice.utils.shared.com.example.rare_finds.sqlconnection.DatabaseHelper
-import kotlinx.coroutines.DelicateCoroutinesApi
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.*
+import kotlin.properties.Delegates
 
-class UpDatingUserFragment : Fragment() {
+class UpdatingUserFragment : Fragment() {
     private val con = ConnectionHelper().dbConn()
     private val db = con?.let { DatabaseHelper(it) }
     private val storageCon = BlobConnection()
@@ -42,15 +44,18 @@ class UpDatingUserFragment : Fragment() {
     private lateinit var imageUri: Uri
     private lateinit var errorMsg : TextView;
     private lateinit var imageUrl :String;
+    private lateinit var addImageIcon: ImageButton;
+    private var userId by Delegates.notNull<Int>();
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_up_dating_user, container, false)
+        return inflater.inflate(R.layout.fragment_update_user, container, false)
     }
 
+    @OptIn(DelicateCoroutinesApi::class)
     @RequiresApi(Build.VERSION_CODES.P)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -59,6 +64,26 @@ class UpDatingUserFragment : Fragment() {
             val editTextPass = findViewById<EditText>(R.id.change_password2)
             val editTextChan = findViewById<EditText>(R.id.confirm_change_password2)
             val profileImage = findViewById<ImageButton>(R.id.imageButton)
+
+            Picasso.get().load(imageUrl).fit().into(profileImage)
+
+            galleryLauncher =
+                registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+                    if (result.resultCode == Activity.RESULT_OK) {
+                        val source = result.data?.data?.let { ImageDecoder.createSource((activity as AppCompatActivity).contentResolver, it) }
+                        val bitmap = source?.let { ImageDecoder.decodeBitmap(it) }
+                        profileImage.setImageBitmap(bitmap)
+                        imageUri = result.data?.data!!
+                        cont = (activity as AppCompatActivity).contentResolver
+                        setImageLink(profileImage)
+                    }
+                }
+
+            profileImage.setOnClickListener{
+                val cameraIntent = Intent(Intent.ACTION_PICK)
+                cameraIntent.type = "image/*"
+                galleryLauncher.launch(cameraIntent)
+            }
 
             val btnAdd: View = findViewById(R.id.update_button)
             btnAdd.setOnClickListener{
@@ -69,14 +94,14 @@ class UpDatingUserFragment : Fragment() {
                 clearAllInputs(view)
                 if(checkAllInputs(view)){
                     if (con != null) {
-                        setImageLink(profileImage)
+                        loadUserData()
                         if(newPass.toString() == confirmPass.toString()){
-                            if(db?.updateUserTable("$newPass", imageUrl,loadUserData()) == true){
-                                val act = view.context as AppCompatActivity
-                                val colFragment = CollectionFragment()
-                                act.supportFragmentManager.beginTransaction().setCustomAnimations(R.anim.from_right, R.anim.from_left, android.R.anim.slide_in_left, android.R.anim.slide_out_right)
-                                    .replace(R.id.fragmentContainerView,colFragment).addToBackStack(null)
-                                    .commit()
+                            if(db?.updateUserTable("$newPass", imageUrl,userId) == true){
+                                GlobalScope.launch(Dispatchers.IO){
+                                    withContext(Dispatchers.Default) {
+                                        replaceFragment(CollectionFragment())
+                                    }
+                                }
                             }
                         }
                         else{
@@ -86,45 +111,34 @@ class UpDatingUserFragment : Fragment() {
                 }
 
             }
-
-            galleryLauncher =
-                registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
-                    if (result.resultCode == Activity.RESULT_OK) {
-                        val source = result.data?.data?.let { ImageDecoder.createSource((activity as AppCompatActivity).contentResolver, it) }
-                        val bitmap = source?.let { ImageDecoder.decodeBitmap(it) }
-                        profileImage.setImageBitmap(bitmap)
-                        imageUri = result.data?.data!!
-                        cont = (activity as AppCompatActivity).contentResolver
-                    }
-                }
-
-            profileImage.setOnClickListener{
-                val cameraIntent = Intent(Intent.ACTION_PICK)
-                cameraIntent.type = "image/*"
-                galleryLauncher.launch(cameraIntent)
-            }
         }
     }
+
+    @SuppressLint("DetachAndAttachSameFragment")
+    private fun replaceFragment(fragment: Fragment){
+
+        val fragmentManager = (activity as AppCompatActivity).supportFragmentManager
+        val fragmentTrans = fragmentManager.beginTransaction().setCustomAnimations(R.anim.from_right, R.anim.from_left, android.R.anim.slide_in_left, android.R.anim.slide_out_right)
+        fragmentTrans.replace(R.id.fragmentContainerView,fragment)
+        fragmentTrans.detach(fragment);
+        fragmentTrans.attach(fragment);
+        fragmentTrans.commit()
+    }
+
     @OptIn(DelicateCoroutinesApi::class)
     @RequiresApi(Build.VERSION_CODES.P)
     private fun setImageLink(profileImage: ImageButton) {
 
-        when (profileImage.drawable) {
-            null -> {
-                imageUrl = BlobConnection().returnImageUrl("users", "default")
+        if(profileImage.drawable != null) {
+            GlobalScope.launch(Dispatchers.IO) {
+                storageCon.blobConnection(
+                    imageUri,
+                    cont,
+                    "users",
+                    "userid_${userId}_profile_image"
+                )
             }
-            else -> {
-                val userCount = db?.checkCount("UserId", "User")?.plus(1)
-                GlobalScope.launch(Dispatchers.IO) {
-                    storageCon.blobConnection(
-                        imageUri,
-                        cont,
-                        "users",
-                        "userid_${userCount}_profile_image"
-                    )
-                }
-                imageUrl = storageCon.returnImageUrl("users", "userid_${userCount}_profile_image")
-            }
+            imageUrl = storageCon.returnImageUrl("users", "userid_${userId}_profile_image")
         }
     }
 
@@ -159,12 +173,13 @@ class UpDatingUserFragment : Fragment() {
         }
     }
 
-    private fun loadUserData():Int{
+    private fun loadUserData(){
         val sp = this.activity?.getSharedPreferences("userInfo", Context.MODE_PRIVATE)
         if (sp != null) {
-            return sp.getInt("userId", 0)
+            userId = sp.getInt("userId", 0)
+            imageUrl = sp.getString("imageUrl", "").toString()
         }
-        return 0
+
     }
 
 }

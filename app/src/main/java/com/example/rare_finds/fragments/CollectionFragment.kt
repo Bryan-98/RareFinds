@@ -6,6 +6,10 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.AdapterView
+import android.widget.ArrayAdapter
+import android.widget.SearchView
+import android.widget.Spinner
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -23,6 +27,7 @@ class CollectionFragment : Fragment() {
     private lateinit var layoutManager: RecyclerView.LayoutManager
     private lateinit var adapter : RecyclerAdapter
     private var userId by Delegates.notNull<Int>()
+    private lateinit var searchView: SearchView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -75,6 +80,36 @@ class CollectionFragment : Fragment() {
             }
         })
         recyclerView.adapter = adapter
+
+        searchView = view.findViewById(R.id.searchView1)
+        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String): Boolean {
+                adapter.filter.filter(query)
+                return true
+            }
+
+            override fun onQueryTextChange(newText: String): Boolean {
+                adapter.filter.filter(newText)
+                return true
+            }
+        })
+
+        val genres = resources.getStringArray(R.array.genre)
+        val spinner = view.findViewById<Spinner>(R.id.spinner2)
+        this.context?.let {
+            ArrayAdapter(it, R.layout.dropdown_item,genres).also { ap ->
+                ap.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+                spinner.adapter = ap
+                spinner.onItemSelectedListener = object :
+                    AdapterView.OnItemSelectedListener{
+                    override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
+                        adapter.filter.filter(genres[p2])
+                    }
+                    override fun onNothingSelected(p0: AdapterView<*>?) {
+                    }
+                }
+            }
+        }
     }
 
     private fun openAddingColl(view:View){

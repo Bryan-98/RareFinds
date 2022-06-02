@@ -30,6 +30,12 @@
         <action
             android:id="@+id/action_libraryFragment_to_addingLibraryFragment"
             app:destination="@id/addingLibraryFragment" />
+        <action
+            android:id="@+id/action_libraryFragment_to_libraryViewFragment"
+            app:destination="@id/libraryViewFragment" />
+        <action
+            android:id="@+id/action_libraryFragment_to_updateLibraryFragment"
+            app:destination="@id/updateLibraryFragment" />
     </fragment>
     <fragment
         android:id="@+id/addingCollectionFragment"
@@ -48,17 +54,31 @@
         tools:layout="@layout/fragment_search" />
     <fragment
         android:id="@+id/upDatingUserFragment"
-        android:name="edu.practice.utils.shared.com.example.rare_finds.fragments.UpDatingUserFragment"
+        android:name="edu.practice.utils.shared.com.example.rare_finds.controllers.UpdatingUserFragment"
         android:label="fragment_up_dating_user"
-        tools:layout="@layout/fragment_up_dating_user" />
+        tools:layout="@layout/fragment_update_user" />
     <fragment
         android:id="@+id/updataCollectionFragment"
         android:name="com.example.rare_finds.UpdateCollectionFragment"
         android:label="fragment_updata_collection"
-        tools:layout="@layout/fragment_updata_collection" />
+        tools:layout="@layout/fragment_update_collection" />
     <fragment
         android:id="@+id/updateLibraryFragment"
         android:name="com.example.rare_finds.UpdateLibraryFragment"
         android:label="fragment_update_library"
         tools:layout="@layout/fragment_update_library" />
+    <fragment
+        android:id="@+id/libraryViewFragment"
+        android:name="com.example.rare_finds.LibraryViewFragment"
+        android:label="fragment_library_view"
+        tools:layout="@layout/fragment_library_view" >
+        <action
+            android:id="@+id/action_libraryViewFragment_to_addCommentFragment"
+            app:destination="@id/addCommentFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/addCommentFragment"
+        android:name="edu.practice.utils.shared.com.example.rare_finds.controllers.AddCommentFragment"
+        android:label="fragment_add_comment"
+        tools:layout="@layout/fragment_adding_comment" />
 </navigation>

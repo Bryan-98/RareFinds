@@ -13,7 +13,7 @@ import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
 import com.example.rare_finds.R
-import edu.practice.utils.shared.com.example.rare_finds.fragments.UpDatingUserFragment
+import edu.practice.utils.shared.com.example.rare_finds.controllers.UpdatingUserFragment
 import com.example.rare_finds.login.LoginActivity
 import com.google.android.material.navigation.NavigationView
 import edu.practice.utils.shared.com.example.rare_finds.fragments.CollectionFragment
@@ -74,7 +74,7 @@ class MainActivity : AppCompatActivity() {
                     GlobalScope.launch(Dispatchers.IO){
                         drawerLayout.closeDrawer(GravityCompat.START)
                     }
-                    replaceFragment(UpDatingUserFragment())
+                    replaceFragment(UpdatingUserFragment())
                     true
                 }
                 R.id.collectionFragment -> {

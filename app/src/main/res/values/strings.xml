@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name" />
+    <string name="app_name">Rare Finds</string>
 
     <!--Fragment name Strings-->
     <string name="collection_name">Collection</string>
@@ -30,17 +30,40 @@
     <string name="image_category">Category Image</string>
     <string name="collection_btn_des">Button to add to collection</string>
 
+    <!--Library View String-->
+    <string name="release_date">Release Date</string>
+    <string name="publisher">Publisher</string>
+    <string name="description">Description</string>
+    <string name="genre">Genre</string>
+    <string name="comment">Comments</string>
+    <string name="price">Price</string>
+
     <string-array name="genre">
+        <item>Any</item>
         <item>Music</item>
         <item>Videos</item>
-        <item>Games</item>
         <item>Video Games</item>
         <item>Computers</item>
         <item>Comics</item>
         <item>Novels</item>
     </string-array>
 
+    <string-array name="lib_filter">
+        <item>Any</item>
+        <item>New</item>
+        <item>Old</item>
+        <item>A-Z</item>
+        <item>FPS</item>
+        <item>Platformer</item>
+        <item>Third Person</item>
+        <item>Shooter</item>
+        <item>Puzzle</item>
+        <item>Stealth</item>
+        <item>Rough</item>
+    </string-array>
+
     <string-array name="game_genre">
+        <item>Any</item>
         <item>FPS</item>
         <item>Platformer</item>
         <item>Third Person</item>
@@ -76,12 +99,14 @@
     <string name="confirm_password">Confirm New Password</string>
     <string name="submit">Submit</string>
     <string name="pass_error">* Sorry your passwords do not match.</string>
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
     <!--Updating String-->
     <string name="update_Col">Edit Collection</string>
+    <string name="update_Lib">Edit Library</string>
     <string name="update">update</string>
     <string name="delete">delete</string>
+    <string name="add_comment">Add Comment</string>
+    <string name="input_comment">Type your comment here....</string>
 
 </resources>

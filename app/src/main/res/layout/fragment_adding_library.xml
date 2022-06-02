@@ -9,18 +9,20 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:fillViewport="true">
+        android:fillViewport="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
-        <TableLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:layout_height="wrap_content">
 
             <ImageButton
                 android:id="@+id/cancel_btn"
-                android:layout_width="20dp"
+                android:layout_width="48dp"
                 android:layout_height="48dp"
-                android:layout_marginStart="250dp"
                 android:layout_marginTop="24dp"
                 android:layout_marginEnd="24dp"
                 android:background="#00000000"
@@ -31,139 +33,163 @@
 
             <ImageButton
                 android:id="@+id/libray_image_selected"
-                android:layout_width="125dp"
-                android:layout_height="125dp"
-                android:layout_marginStart="80dp"
-                android:layout_marginTop="100dp"
-                android:layout_marginEnd="80dp"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_marginTop="140dp"
+                android:adjustViewBounds="true"
                 android:contentDescription="@string/img_description"
-                android:src="@drawable/ic_baseline_add_photo_alternate"
-                android:scaleType="fitXY"/>
+                android:padding="2dp"
+                android:scaleType="fitXY"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.498"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:ignore="DuplicateSpeakableTextCheck" />
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/input_library_name"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                android:layout_width="match_parent"
+                android:layout_width="250dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
                 android:layout_marginTop="60dp"
-                android:layout_marginEnd="10dp"
                 android:hint="name"
                 android:inputType="textPersonName"
-                app:errorEnabled="true">
+                app:errorEnabled="true"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/libray_image_selected">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/library_name"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="32dp"
                     android:inputType="textPersonName"
                     android:textColorHint="#757575"
-                    tools:ignore="TextContrastCheck" />
+                    app:layout_constraintTop_toBottomOf="@+id/libray_image_selected"
+                    tools:ignore="TextContrastCheck"
+                    tools:layout_editor_absoluteX="0dp" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/input_library_description"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                android:layout_width="match_parent"
+                android:layout_width="250dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:layout_marginTop="30dp"
-                android:layout_marginEnd="10dp"
+                android:layout_marginTop="60dp"
                 android:hint="description"
                 android:inputType="textPersonName"
-                app:errorEnabled="true">
+                app:errorEnabled="true"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/input_library_name">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/library_description"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:inputType="textPersonName"
-                    tools:ignore="TextContrastCheck" />
+                    tools:ignore="TextContrastCheck"
+                    tools:layout_editor_absoluteX="11dp"
+                    tools:layout_editor_absoluteY="502dp" />
+
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/input_library_price"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                android:layout_width="match_parent"
+                android:layout_width="250dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:layout_marginTop="30dp"
-                android:layout_marginEnd="10dp"
+                android:layout_marginTop="60dp"
                 android:hint="price"
                 android:inputType="number"
-                app:errorEnabled="true">
+                app:errorEnabled="true"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/input_library_description">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/library_price"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:inputType="number"
-                    tools:ignore="TextContrastCheck" />
+                    tools:ignore="TextContrastCheck"
+                    tools:layout_editor_absoluteX="0dp"
+                    tools:layout_editor_absoluteY="430dp" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/input_library_year"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                android:layout_width="match_parent"
+                android:layout_width="250dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:layout_marginTop="30dp"
-                android:layout_marginEnd="10dp"
+                android:layout_marginTop="60dp"
                 android:hint="year"
                 android:inputType="number"
-                app:errorEnabled="true">
+                app:errorEnabled="true"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/input_library_price">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/library_year"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:inputType="number"
-                    tools:ignore="TextContrastCheck" />
+                    tools:ignore="TextContrastCheck"
+                    tools:layout_editor_absoluteX="0dp"
+                    tools:layout_editor_absoluteY="369dp" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/input_library_publisher"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                android:layout_width="match_parent"
+                android:layout_width="250dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:layout_marginTop="30dp"
-                android:layout_marginEnd="10dp"
+                android:layout_marginTop="60dp"
                 android:hint="publisher"
                 android:inputType="textPersonName"
-                app:errorEnabled="true">
+                app:errorEnabled="true"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/input_library_year">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/library_publisher"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:inputType="textPersonName"
-                    tools:ignore="TextContrastCheck" />
+                    tools:ignore="TextContrastCheck"
+                    tools:layout_editor_absoluteX="10dp"
+                    tools:layout_editor_absoluteY="305dp" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <Spinner
                 android:id="@+id/genre_spinner"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
                 android:layout_marginTop="30dp"
-                android:layout_marginEnd="10dp"
                 android:hint="@string/user_name"
                 android:minHeight="48dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/input_library_publisher"
                 tools:ignore="SpeakableTextPresentCheck" />
 
             <Button
                 android:id="@+id/library_add_btn"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="80dp"
                 android:layout_marginTop="40dp"
-                android:layout_marginEnd="80dp"
                 android:layout_marginBottom="40dp"
-                android:text="@string/add_category_name" />
-
-        </TableLayout>
+                android:text="@string/add_category_name"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/genre_spinner"
+                tools:ignore="TextContrastCheck" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
 
 
