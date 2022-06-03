@@ -1,18 +1,22 @@
 package edu.practice.utils.shared.com.example.rare_finds.controllers
 
+import android.icu.number.NumberFormatter.with
+import android.icu.number.NumberRangeFormatter.with
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
 import androidx.recyclerview.widget.RecyclerView
 import com.example.rare_finds.R
+import com.squareup.picasso.MemoryPolicy
+import com.squareup.picasso.NetworkPolicy
 import com.squareup.picasso.Picasso
 import edu.practice.utils.shared.com.example.rare_finds.models.Collection
 import edu.practice.utils.shared.com.example.rare_finds.sqlconnection.ConnectionHelper
 import edu.practice.utils.shared.com.example.rare_finds.sqlconnection.DatabaseHelper
 import java.io.Serializable
 
-class RecyclerAdapter(userID : Int): RecyclerView.Adapter<RecyclerAdapter.ViewHolder>(), Filterable{
+class ColRecyclerAdapter(userID : Int): RecyclerView.Adapter<ColRecyclerAdapter.ViewHolder>(), Filterable{
 
     private var colList : ArrayList<Collection>
     private var colListFil : ArrayList<Collection>
@@ -46,8 +50,11 @@ class RecyclerAdapter(userID : Int): RecyclerView.Adapter<RecyclerAdapter.ViewHo
 
         holder.itemName.text = colList[position].colName
         holder.itemDescription.text = colList[position].colDescription
-        Picasso.get().load(colList[position].imageUrl).fit().into(holder.itemImage)
 
+        Picasso.get().load(colList[position].imageUrl)
+            .networkPolicy(NetworkPolicy.NO_CACHE)
+            .memoryPolicy(MemoryPolicy.NO_CACHE)
+            .into(holder.itemImage)
     }
 
     override fun getItemCount(): Int {

@@ -195,7 +195,7 @@ class DatabaseHelper(con: Connection){
     }
 
     fun checkCount(id: String, table: String): Int{
-        val sqlQuery = "SELECT COUNT($id)AS 'sum' FROM [dbo].[$table]"
+        val sqlQuery = "SELECT MAX($id) AS 'sum' FROM [dbo].[$table]"
         try {
             val rs = conn.createStatement()?.executeQuery(sqlQuery)
             if (rs != null) {

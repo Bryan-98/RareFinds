@@ -22,10 +22,10 @@ import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import com.example.rare_finds.R
 import com.google.android.material.textfield.TextInputLayout
+import com.squareup.picasso.MemoryPolicy
+import com.squareup.picasso.NetworkPolicy
 import com.squareup.picasso.Picasso
-import edu.practice.utils.shared.com.example.rare_finds.fragments.CollectionFragment
 import edu.practice.utils.shared.com.example.rare_finds.fragments.LibraryFragment
-import edu.practice.utils.shared.com.example.rare_finds.models.Collection
 import edu.practice.utils.shared.com.example.rare_finds.models.Library
 import edu.practice.utils.shared.com.example.rare_finds.sqlconnection.BlobConnection
 import edu.practice.utils.shared.com.example.rare_finds.sqlconnection.ConnectionHelper
@@ -95,7 +95,11 @@ class UpdateLibraryFragment : Fragment() {
             editTextPrice.setText(price.toString())
             editTextYear.setText(year.toString())
             editTextPub.setText(pub)
-            Picasso.get().load(imageUrl).fit().into(addImageIcon)
+
+            Picasso.get().load(imageUrl).fit()
+                .networkPolicy(NetworkPolicy.NO_CACHE)
+                .memoryPolicy(MemoryPolicy.NO_CACHE)
+                .into(addImageIcon)
 
 
             galleryLauncher =

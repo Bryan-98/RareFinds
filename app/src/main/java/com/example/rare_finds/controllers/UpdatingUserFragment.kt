@@ -23,6 +23,8 @@ import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import com.example.rare_finds.R
 import com.google.android.material.textfield.TextInputLayout
+import com.squareup.picasso.MemoryPolicy
+import com.squareup.picasso.NetworkPolicy
 import com.squareup.picasso.Picasso
 import edu.practice.utils.shared.com.example.rare_finds.fragments.CollectionFragment
 import edu.practice.utils.shared.com.example.rare_finds.fragments.LibraryFragment
@@ -47,11 +49,14 @@ class UpdatingUserFragment : Fragment() {
     private lateinit var addImageIcon: ImageButton;
     private var userId by Delegates.notNull<Int>();
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        loadUserData()
+    }
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_update_user, container, false)
     }
 
@@ -65,7 +70,10 @@ class UpdatingUserFragment : Fragment() {
             val editTextChan = findViewById<EditText>(R.id.confirm_change_password2)
             val profileImage = findViewById<ImageButton>(R.id.imageButton)
 
-            Picasso.get().load(imageUrl).fit().into(profileImage)
+            Picasso.get().load(imageUrl).fit()
+                .networkPolicy(NetworkPolicy.NO_CACHE)
+                .memoryPolicy(MemoryPolicy.NO_CACHE)
+                .into(profileImage)
 
             galleryLauncher =
                 registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->

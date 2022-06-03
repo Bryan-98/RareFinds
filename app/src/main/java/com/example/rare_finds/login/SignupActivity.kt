@@ -2,12 +2,16 @@ package com.example.rare_finds.login
 
 import android.app.Activity
 import android.content.ContentResolver
+import android.content.Context
 import android.content.Intent
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import android.graphics.ImageDecoder
 import android.net.Uri
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.provider.MediaStore
 import android.text.Editable
 import android.view.View
 import android.widget.EditText
@@ -26,18 +30,20 @@ import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
+import java.io.ByteArrayOutputStream
+import java.net.URL
 
 class SignupActivity : AppCompatActivity() {
     private val con = ConnectionHelper().dbConn()
     private val db = con?.let { DatabaseHelper(it) }
     private val storageCon = BlobConnection()
     private lateinit var galleryLauncher: ActivityResultLauncher<Intent>
-    private lateinit var til :TextInputLayout;
-    private lateinit var name :Editable;
-    private lateinit var email :Editable;
-    private lateinit var pass :Editable;
-    private lateinit var imageUrl :String;
-    private lateinit var errorMsg :TextView;
+    private lateinit var til :TextInputLayout
+    private lateinit var name :Editable
+    private lateinit var email :Editable
+    private lateinit var pass :Editable
+    private lateinit var imageUrl :String
+    private lateinit var errorMsg :TextView
     private lateinit var imageUri: Uri
     private lateinit var cont: ContentResolver
 
@@ -103,47 +109,79 @@ class SignupActivity : AppCompatActivity() {
         }
     }
 
-    @OptIn(DelicateCoroutinesApi::class)
     @RequiresApi(Build.VERSION_CODES.P)
     private fun setImageLink(profileImage: ImageButton) {
 
-        when (profileImage.drawable) {
-            null -> {
-                imageUrl = BlobConnection().returnImageUrl("users", "default")
-            }
-            else -> {
-                val userCount = db?.checkCount("UserId", "User")?.plus(1)
-                GlobalScope.launch(Dispatchers.IO) {
-                    storageCon.blobConnection(
-                        imageUri,
-                        cont,
-                        "users",
-                        "userid_${userCount}_profile_image"
-                    )
-                }
-                imageUrl = storageCon.returnImageUrl("users", "userid_${userCount}_profile_image")
-            }
+        if (profileImage.drawable == null) {
+            imageUrl = BlobConnection().returnImageUrl("users", "default")
+            val url = URL(imageUrl)
+            val image = BitmapFactory.decodeStream(url.openConnection().getInputStream())
+            cont = applicationContext.contentResolver
+            imageUri = getImageUriFromBitmap(applicationContext, image)
+            storeImage()
+        }else{
+            storeImage()
         }
+    }
+
+    @OptIn(DelicateCoroutinesApi::class)
+    @RequiresApi(Build.VERSION_CODES.P)
+    private fun storeImage(){
+        val userCount = db?.checkCount("UserId", "User")?.plus(1)
+        GlobalScope.launch(Dispatchers.IO) {
+            storageCon.blobConnection(
+                imageUri,
+                cont,
+                "users",
+                "userid_${userCount}_profile_image"
+            )
+        }
+        imageUrl = storageCon.returnImageUrl("users", "userid_${userCount}_profile_image")
+    }
+
+    private fun getImageUriFromBitmap(context: Context, bitmap: Bitmap): Uri{
+        val bytes = ByteArrayOutputStream()
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, bytes)
+        val path = MediaStore.Images.Media.insertImage(context.contentResolver, bitmap, "Title", null)
+        return Uri.parse(path.toString())
     }
 
     private fun checkAllInputs():Boolean {
         var count = 0
         if (name.isBlank()) {
-            til = findViewById(R.id.signUserName);
+            til = findViewById(R.id.signUserName)
             til.isErrorEnabled = true
-            til.error = "Enter a username";
+            til.error = "Enter a username"
+            count++
+        }
+        if(name.isNotBlank() && name.length > 4){
+            til = findViewById(R.id.signUserName)
+            til.isErrorEnabled = true
+            til.error = "Username needs to   be 4 characters long"
             count++
         }
         if (email.isBlank()) {
-            til = findViewById(R.id.signUserMail);
+            til = findViewById(R.id.signUserMail)
             til.isErrorEnabled = true
-            til.error = "Enter an email";
+            til.error = "Enter an email"
+            count++
+        }
+        if (email.isNotBlank() && !email.contains("@") && !email.contains(".com")) {
+            til = findViewById(R.id.signUserMail)
+            til.isErrorEnabled = true
+            til.error = "Enter a valid email"
             count++
         }
         if (pass.isBlank()) {
-            til = findViewById(R.id.signUserPass);
+            til = findViewById(R.id.signUserPass)
             til.isErrorEnabled = true
-            til.error = "Enter a Password";
+            til.error = "Enter a Password"
+            count++
+        }
+        if(pass.isNotBlank() && pass.length > 8){
+            til = findViewById(R.id.signUserPass)
+            til.isErrorEnabled = true
+            til.error = "Password needs to be 8 characters long"
             count++
         }
         if(count > 0) return false
@@ -154,15 +192,15 @@ class SignupActivity : AppCompatActivity() {
     private fun clearAllInputs() {
 
         if(name.isNotBlank()){
-            til = findViewById(R.id.signUserName);
+            til = findViewById(R.id.signUserName)
             til.isErrorEnabled = false
         }
         if(email.isNotBlank()){
-            til = findViewById(R.id.signUserMail);
+            til = findViewById(R.id.signUserMail)
             til.isErrorEnabled = false
         }
         if(pass.isNotBlank()){
-            til = findViewById(R.id.signUserPass);
+            til = findViewById(R.id.signUserPass)
             til.isErrorEnabled = false
         }
     }

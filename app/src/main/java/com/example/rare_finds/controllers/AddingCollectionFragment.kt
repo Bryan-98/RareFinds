@@ -4,10 +4,13 @@ import android.app.Activity
 import android.content.ContentResolver
 import android.content.Context
 import android.content.Intent
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import android.graphics.ImageDecoder
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
+import android.provider.MediaStore
 import android.text.Editable
 import android.view.LayoutInflater
 import android.view.View
@@ -26,6 +29,9 @@ import edu.practice.utils.shared.com.example.rare_finds.sqlconnection.BlobConnec
 import edu.practice.utils.shared.com.example.rare_finds.sqlconnection.ConnectionHelper
 import edu.practice.utils.shared.com.example.rare_finds.sqlconnection.DatabaseHelper
 import kotlinx.coroutines.*
+import java.io.ByteArrayOutputStream
+import java.net.URL
+
 
 class AddingCollectionFragment : DialogFragment() {
     private val con = ConnectionHelper().dbConn()
@@ -116,11 +122,10 @@ class AddingCollectionFragment : DialogFragment() {
                         db?.insertTable(table, col, "'${name}','${des}','${genre}', $userId,'${imageUrl}'")
                     }
                     GlobalScope.launch(Dispatchers.IO){
-
-                            withContext(Dispatchers.Default) {
-                                replaceFragment(CollectionFragment())
-                            }
-                            withContext(Dispatchers.Default) { dismiss() }
+                        withContext(Dispatchers.Default) {
+                            replaceFragment(CollectionFragment())
+                        }
+                        withContext(Dispatchers.Default) { dismiss() }
                     }
                 }
             }
@@ -135,27 +140,41 @@ class AddingCollectionFragment : DialogFragment() {
         fragmentTrans.commit()
     }
 
-    @OptIn(DelicateCoroutinesApi::class)
     @RequiresApi(Build.VERSION_CODES.P)
     private fun setImageLink(profileImage: ImageButton) {
-
-        when (profileImage.drawable) {
-            null -> {
-                imageUrl = BlobConnection().returnImageUrl("collection", "default")
-            }
-            else -> {
-                val userCount = db?.checkCount("CollId", "Collection")?.plus(1)
-                GlobalScope.launch(Dispatchers.IO) {
-                    storageCon.blobConnection(
-                        imageUri,
-                        cont,
-                        "collection",
-                        "userid_${loadUserData()}_colid_${userCount}_collection_image"
-                    )
-                }
-                imageUrl = storageCon.returnImageUrl("collection", "userid_${loadUserData()}_colid_${userCount}_collection_image")
-            }
+        if (profileImage.drawable == null) {
+            imageUrl = BlobConnection().returnImageUrl("collection", "default")
+            val url = URL(imageUrl)
+            val image = BitmapFactory.decodeStream(url.openConnection().getInputStream())
+            val act = (activity as AppCompatActivity)
+            imageUri = getImageUriFromBitmap(act, image)
+            cont = act.contentResolver
+            storeImage()
+        }else{
+            storeImage()
         }
+    }
+
+    @OptIn(DelicateCoroutinesApi::class)
+    @RequiresApi(Build.VERSION_CODES.P)
+    private fun storeImage(){
+        val userCount = db?.checkCount("CollId", "Collection")?.plus(1)
+        GlobalScope.launch(Dispatchers.IO) {
+            storageCon.blobConnection(
+                imageUri,
+                cont,
+                "collection",
+                "userid_${loadUserData()}_colid_${userCount}_collection_image"
+            )
+        }
+        imageUrl = storageCon.returnImageUrl("collection", "userid_${loadUserData()}_colid_${userCount}_collection_image")
+    }
+
+    private fun getImageUriFromBitmap(context: Context, bitmap: Bitmap): Uri{
+        val bytes = ByteArrayOutputStream()
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, bytes)
+        val path = MediaStore.Images.Media.insertImage(context.contentResolver, bitmap, "Title", null)
+        return Uri.parse(path.toString())
     }
 
     private fun checkAllInputs(view: View):Boolean {

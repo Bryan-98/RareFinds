@@ -7,12 +7,14 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.rare_finds.R
+import com.squareup.picasso.MemoryPolicy
+import com.squareup.picasso.NetworkPolicy
 import com.squareup.picasso.Picasso
 import edu.practice.utils.shared.com.example.rare_finds.models.Comment
 import edu.practice.utils.shared.com.example.rare_finds.sqlconnection.ConnectionHelper
 import edu.practice.utils.shared.com.example.rare_finds.sqlconnection.DatabaseHelper
 
-class CommentAdapter(libName: String) : RecyclerView.Adapter<CommentAdapter.ViewHolder>() {
+class ComRecyclerAdapter(libName: String) : RecyclerView.Adapter<ComRecyclerAdapter.ViewHolder>() {
 
     private lateinit var comList : ArrayList<Comment>
 
@@ -36,7 +38,11 @@ class CommentAdapter(libName: String) : RecyclerView.Adapter<CommentAdapter.View
         holder.itemUserDate.text = comList[position].date.toString()
         holder.itemComment.text = comList[position].comment
         starSelect(holder,comList[position].rating)
-        Picasso.get().load(comList[position].userImage).fit().into(holder.itemImage)
+
+        Picasso.get().load(comList[position].userImage).fit()
+            .networkPolicy(NetworkPolicy.NO_CACHE)
+            .memoryPolicy(MemoryPolicy.NO_CACHE)
+            .into(holder.itemImage)
 
     }
 

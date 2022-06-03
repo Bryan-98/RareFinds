@@ -17,7 +17,8 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:ignore="SpeakableTextPresentCheck"
-        android:scaleType="fitXY" />
+        android:scaleType="fitXY"
+        android:contentDescription="@string/header_image_des" />
 
     <com.google.android.material.textfield.TextInputLayout
         style ="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"

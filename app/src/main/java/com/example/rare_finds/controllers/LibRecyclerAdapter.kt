@@ -9,6 +9,8 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.rare_finds.R
+import com.squareup.picasso.MemoryPolicy
+import com.squareup.picasso.NetworkPolicy
 import com.squareup.picasso.Picasso
 import edu.practice.utils.shared.com.example.rare_finds.models.Library
 import edu.practice.utils.shared.com.example.rare_finds.sqlconnection.ConnectionHelper
@@ -48,7 +50,11 @@ class LibRecyclerAdapter(colId : Int): RecyclerView.Adapter<LibRecyclerAdapter.V
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.itemName.text = libList[position].libName
         holder.itemDescription.text = libList[position].libDescription
-        Picasso.get().load(libList[position].imageUrl).fit().into(holder.itemImage)
+
+        Picasso.get().load(libList[position].imageUrl).fit()
+            .networkPolicy(NetworkPolicy.NO_CACHE)
+            .memoryPolicy(MemoryPolicy.NO_CACHE)
+            .into(holder.itemImage)
     }
 
     override fun getItemCount(): Int {

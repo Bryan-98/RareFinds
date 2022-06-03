@@ -20,9 +20,10 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.example.rare_finds.R
 import com.google.android.material.textfield.TextInputLayout
+import com.squareup.picasso.MemoryPolicy
+import com.squareup.picasso.NetworkPolicy
 import com.squareup.picasso.Picasso
 import edu.practice.utils.shared.com.example.rare_finds.fragments.CollectionFragment
-import edu.practice.utils.shared.com.example.rare_finds.fragments.LibraryFragment
 import edu.practice.utils.shared.com.example.rare_finds.models.Collection
 import edu.practice.utils.shared.com.example.rare_finds.sqlconnection.BlobConnection
 import edu.practice.utils.shared.com.example.rare_finds.sqlconnection.ConnectionHelper
@@ -45,8 +46,8 @@ class UpdateCollectionFragment : Fragment() {
     private lateinit var galleryLauncher: ActivityResultLauncher<Intent>
     private lateinit var imageUri: Uri
     private lateinit var cont: ContentResolver
-    private lateinit var til: TextInputLayout;
-    private lateinit var addImageIcon: ImageButton;
+    private lateinit var til: TextInputLayout
+    private lateinit var addImageIcon: ImageButton
 
     private var colInfo: Serializable? = null
 
@@ -82,7 +83,11 @@ class UpdateCollectionFragment : Fragment() {
 
             editTextName.setText(name)
             editTextDes.setText(des)
-            Picasso.get().load(imageUrl).fit().into(addImageIcon)
+
+            Picasso.get().load(imageUrl).fit()
+                .networkPolicy(NetworkPolicy.NO_CACHE)
+                .memoryPolicy(MemoryPolicy.NO_CACHE)
+                .into(addImageIcon)
 
             galleryLauncher =
                 registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
@@ -95,7 +100,6 @@ class UpdateCollectionFragment : Fragment() {
                         addImageIcon.setImageBitmap(bitmap)
                         imageUri = result.data?.data!!
                         cont = (activity as AppCompatActivity).contentResolver
-                        setImageLink(addImageIcon)
                     }
                 }
 
@@ -125,6 +129,7 @@ class UpdateCollectionFragment : Fragment() {
                     if (con != null) {
                         name = editTextName.text.toString()
                         des = editTextDes.text.toString()
+                        setImageLink(addImageIcon)
                         db?.updateColTable(name, des, imageUrl, colId)
 
                     }
@@ -144,8 +149,8 @@ class UpdateCollectionFragment : Fragment() {
         val fragmentManager = (activity as AppCompatActivity).supportFragmentManager
         val fragmentTrans = fragmentManager.beginTransaction().setCustomAnimations(R.anim.from_right, R.anim.from_left, android.R.anim.slide_in_left, android.R.anim.slide_out_right)
         fragmentTrans.replace(R.id.fragmentContainerView,fragment)
-        fragmentTrans.detach(fragment);
-        fragmentTrans.attach(fragment);
+        fragmentTrans.detach(fragment)
+        fragmentTrans.attach(fragment)
         fragmentTrans.commit()
     }
 
@@ -172,15 +177,15 @@ class UpdateCollectionFragment : Fragment() {
     private fun checkAllInputs(view: View): Boolean {
         var count = 0
         if (name.isBlank()) {
-            til = view.findViewById(R.id.input_collection_name);
+            til = view.findViewById(R.id.input_collection_name)
             til.isErrorEnabled = true
-            til.error = "Enter a Name";
+            til.error = "Enter a Name"
             count++
         }
         if (des.isBlank()) {
-            til = view.findViewById(R.id.input_collection_description);
+            til = view.findViewById(R.id.input_collection_description)
             til.isErrorEnabled = true
-            til.error = "Enter a Description";
+            til.error = "Enter a Description"
             count++
         }
         if (count > 0) return false
@@ -191,11 +196,11 @@ class UpdateCollectionFragment : Fragment() {
     private fun clearAllInputs(view: View) {
 
         if (name.isNotBlank()) {
-            til = view.findViewById(R.id.input_collection_name);
+            til = view.findViewById(R.id.input_collection_name)
             til.isErrorEnabled = false
         }
         if (des.isNotBlank()) {
-            til = view.findViewById(R.id.input_collection_description);
+            til = view.findViewById(R.id.input_collection_description)
             til.isErrorEnabled = false
         }
     }

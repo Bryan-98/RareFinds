@@ -16,11 +16,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.rare_finds.R
 import com.squareup.picasso.Picasso
 import edu.practice.utils.shared.com.example.rare_finds.controllers.AddCommentFragment
-import edu.practice.utils.shared.com.example.rare_finds.controllers.CommentAdapter
+import edu.practice.utils.shared.com.example.rare_finds.controllers.ComRecyclerAdapter
 import edu.practice.utils.shared.com.example.rare_finds.models.Library
-import edu.practice.utils.shared.com.example.rare_finds.sqlconnection.BlobConnection
-import edu.practice.utils.shared.com.example.rare_finds.sqlconnection.ConnectionHelper
-import edu.practice.utils.shared.com.example.rare_finds.sqlconnection.DatabaseHelper
 import java.io.Serializable
 import kotlin.properties.Delegates
 
@@ -28,7 +25,7 @@ private const val ARG_PARAM1 = "libraryInfo"
 
 class LibraryViewFragment : Fragment() {
     private lateinit var layoutManager: RecyclerView.LayoutManager
-    private lateinit var adapter : CommentAdapter
+    private lateinit var adapter : ComRecyclerAdapter
     private lateinit var name: String
     private lateinit var des: String
     private lateinit var publisher: String
@@ -99,7 +96,7 @@ class LibraryViewFragment : Fragment() {
 
     private fun loadCommentList(view: View){
         val recyclerView = view.findViewById<RecyclerView>(R.id.commentView)
-        adapter = CommentAdapter(name)
+        adapter = ComRecyclerAdapter(name)
         layoutManager = LinearLayoutManager(this.context)
         recyclerView.layoutManager = layoutManager
         recyclerView.adapter = adapter

@@ -1,8 +1,8 @@
 package edu.practice.utils.shared.com.example.rare_finds.fragments
 
 import android.content.Context
+import android.os.Build
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,21 +11,23 @@ import android.widget.ArrayAdapter
 import android.widget.SearchView
 import android.widget.Spinner
 import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import edu.practice.utils.shared.com.example.rare_finds.controllers.AddingCollectionFragment
 import com.example.rare_finds.R
 import com.google.android.material.floatingactionbutton.FloatingActionButton
-import edu.practice.utils.shared.com.example.rare_finds.controllers.RecyclerAdapter
+import edu.practice.utils.shared.com.example.rare_finds.controllers.AddingCollectionFragment
+import edu.practice.utils.shared.com.example.rare_finds.controllers.ColRecyclerAdapter
 import edu.practice.utils.shared.com.example.rare_finds.controllers.UpdateCollectionFragment
 import edu.practice.utils.shared.com.example.rare_finds.models.Collection
 import java.io.Serializable
 import kotlin.properties.Delegates
 
+
 class CollectionFragment : Fragment() {
 
     private lateinit var layoutManager: RecyclerView.LayoutManager
-    private lateinit var adapter : RecyclerAdapter
+    private lateinit var adapter : ColRecyclerAdapter
     private var userId by Delegates.notNull<Int>()
     private lateinit var searchView: SearchView
 
@@ -53,15 +55,17 @@ class CollectionFragment : Fragment() {
 
     private fun loadCollectionList(view: View){
         val recyclerView = view.findViewById<RecyclerView>(R.id.collectionView)
-        adapter = RecyclerAdapter(userId)
+        adapter = ColRecyclerAdapter(userId)
         layoutManager = LinearLayoutManager(this.context)
         recyclerView.layoutManager = layoutManager
+
         val act = view.context as AppCompatActivity
-        adapter.setOnItemClickListener(object: RecyclerAdapter.OnItemClickListener {
+        adapter.setOnItemClickListener(object: ColRecyclerAdapter.OnItemClickListener {
             override fun onItemClick(item: Serializable) {
                 val colId = item as Collection
-                sharedUserPref(colId.colId)
                 val libFragment = LibraryFragment()
+
+                sharedUserPref(colId.colId)
                 act.supportFragmentManager.beginTransaction().setCustomAnimations(R.anim.from_right, R.anim.from_left, android.R.anim.slide_in_left, android.R.anim.slide_out_right)
                     .replace(R.id.fragmentContainerView,libFragment).addToBackStack(null)
                     .commit()
@@ -69,12 +73,13 @@ class CollectionFragment : Fragment() {
             override fun onLongItemClick(item: Serializable): Boolean{
                 val colBundle = Bundle()
                 val colId = item as Collection
-                colBundle.putSerializable("collectionInfo", colId)
                 val updateFrag = UpdateCollectionFragment()
+
+                colBundle.putSerializable("collectionInfo", colId)
                 updateFrag.arguments = colBundle
                 act.supportFragmentManager.beginTransaction()
                     .setCustomAnimations(R.anim.from_right, R.anim.from_left, android.R.anim.slide_in_left, android.R.anim.slide_out_right)
-                    .replace(R.id.fragmentContainerView,updateFrag).addToBackStack(null)
+                    .replace(R.id.fragmentContainerView,updateFrag)
                     .commit()
                 return true
             }

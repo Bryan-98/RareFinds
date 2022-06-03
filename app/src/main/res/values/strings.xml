@@ -37,6 +37,8 @@
     <string name="genre">Genre</string>
     <string name="comment">Comments</string>
     <string name="price">Price</string>
+    <string name="year">Year</string>
+    <string name="name">Name</string>
 
     <string-array name="genre">
         <item>Any</item>
