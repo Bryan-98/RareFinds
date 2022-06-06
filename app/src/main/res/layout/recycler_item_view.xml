@@ -33,7 +33,6 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
         android:text="@string/category_name"
-        android:textColor="@color/white"
         app:layout_constraintStart_toEndOf="@+id/category_image_id"
         app:layout_constraintTop_toTopOf="@+id/category_image_id" />
 
@@ -44,6 +43,7 @@
         android:layout_marginStart="24dp"
         android:layout_marginTop="12dp"
         android:text="@string/category_description"
+        android:maxLines="4"
         android:textColor="@color/white"
         app:layout_constraintStart_toEndOf="@+id/category_image_id"
         app:layout_constraintTop_toBottomOf="@+id/category_name_id" />
