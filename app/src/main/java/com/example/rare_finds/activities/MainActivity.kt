@@ -89,8 +89,8 @@ class MainActivity : AppCompatActivity() {
 
                     GlobalScope.launch(Dispatchers.IO){
                         drawerLayout.closeDrawer(GravityCompat.START)
+                        replaceFragment(SearchFragment())
                     }
-                    replaceFragment(SearchFragment())
                     true
                 }
                 else -> {

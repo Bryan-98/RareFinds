@@ -40,7 +40,10 @@ class SearchRecyclerAdapter(searchStr : String) : RecyclerView.Adapter<SearchRec
 
     private fun apiCall(searchStr: String) : ArrayList<Search>{
         IGDBWrapper.setCredentials(clientId, token)
-        val api = APICalypse().fields("cover.url, name, first_release_date, summary, url, involved_companies.company.name, involved_companies.publisher, genres.name").search(searchStr).where("(cover != null | name != null | first_release_date != null | summary != null | url != null | involved_companies != null | genres != null)").limit(5)
+        val api = APICalypse().fields("cover.url, name, first_release_date, summary, url, involved_companies.company.name, involved_companies.publisher, genres.name")
+            .search(searchStr).where("(cover != null | name != null | first_release_date != null | summary != null | url != null | involved_companies != null | genres != null)")
+            .limit(25)
+
         val search : ArrayList<Search> = ArrayList()
         try {
             val games = IGDBWrapper.games(api)
@@ -131,7 +134,7 @@ class SearchRecyclerAdapter(searchStr : String) : RecyclerView.Adapter<SearchRec
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.itemName.text = searchList[position].searchName
-        holder.itemDescription.text = searchList[position].colDescription
+        holder.itemDescription.text = ""
         Picasso.get().load(searchList[position].imageUrl).fit().into(holder.itemImage)
     }
 
