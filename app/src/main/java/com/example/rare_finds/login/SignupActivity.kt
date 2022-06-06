@@ -21,6 +21,7 @@ import android.widget.TextView
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.annotation.RequiresApi
+import androidx.appcompat.app.ActionBar
 import com.example.rare_finds.R
 import com.google.android.material.textfield.TextInputLayout
 import edu.practice.utils.shared.com.example.rare_finds.sqlconnection.BlobConnection
@@ -51,6 +52,8 @@ class SignupActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_signup)
+        val actionBar: ActionBar? = supportActionBar
+        actionBar?.hide()
 
         val editTextName = findViewById<EditText>(R.id.signUserName2)
         val editTextEmail = findViewById<EditText>(R.id.signUserMail2)
