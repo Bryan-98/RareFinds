@@ -110,5 +110,6 @@
     <string name="delete">delete</string>
     <string name="add_comment">Add Comment</string>
     <string name="input_comment">Type your comment here....</string>
+    <string name="add">add</string>
 
 </resources>

@@ -11,7 +11,9 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.rare_finds.R
+import com.example.rare_finds.fragments.SearchedItemFragment
 import edu.practice.utils.shared.com.example.rare_finds.controllers.SearchRecyclerAdapter
+import edu.practice.utils.shared.com.example.rare_finds.models.Search
 import java.io.Serializable
 import kotlin.properties.Delegates
 
@@ -44,11 +46,21 @@ class SearchFragment : Fragment() {
             val act = view.context as AppCompatActivity
             adapter.setOnItemClickListener(object: SearchRecyclerAdapter.OnItemClickListener {
                 override fun onItemClick(item: Serializable) {
-                    val libFragment = LibraryFragment()
+                    val itemBundle = Bundle()
+                    val sear = item as Search
+                    itemBundle.putSerializable("SearchedItemInfo", sear)
 
+                    val srchdItemFragment = SearchedItemFragment()
+                    srchdItemFragment.arguments = itemBundle
                     act.supportFragmentManager.beginTransaction().setCustomAnimations(R.anim.from_right, R.anim.from_left, android.R.anim.slide_in_left, android.R.anim.slide_out_right)
-                        .replace(R.id.fragmentContainerView,libFragment).addToBackStack(null)
+                        .replace(R.id.fragmentContainerView,srchdItemFragment).addToBackStack(null)
                         .commit()
+
+//                    val libFragment = LibraryFragment()
+//
+//                    act.supportFragmentManager.beginTransaction().setCustomAnimations(R.anim.from_right, R.anim.from_left, android.R.anim.slide_in_left, android.R.anim.slide_out_right)
+//                        .replace(R.id.fragmentContainerView,libFragment).addToBackStack(null)
+//                        .commit()
                 }
                 override fun onLongItemClick(item: Serializable): Boolean{
                     return true

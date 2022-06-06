@@ -3,52 +3,40 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/123/Desktop/LWTECH1/Bachelors/2022Spring/Capstone/RareFinds/app/src/main/res/drawable/collection_view_shape.xml" value="0.224" />
+        <entry key="..\:/Users/123/Desktop/LWTECH1/Bachelors/2022Spring/Capstone/RareFinds/app/src/main/res/layout/activity_main.xml" value="0.17685185185185184" />
+        <entry key="..\:/Users/123/Desktop/LWTECH1/Bachelors/2022Spring/Capstone/RareFinds/app/src/main/res/layout/fragment_collection.xml" value="0.1" />
+        <entry key="..\:/Users/123/Desktop/LWTECH1/Bachelors/2022Spring/Capstone/RareFinds/app/src/main/res/layout/fragment_library.xml" value="0.45742753623188404" />
+        <entry key="..\:/Users/123/Desktop/LWTECH1/Bachelors/2022Spring/Capstone/RareFinds/app/src/main/res/layout/fragment_library_view.xml" value="0.23084626940410616" />
+        <entry key="..\:/Users/123/Desktop/LWTECH1/Bachelors/2022Spring/Capstone/RareFinds/app/src/main/res/layout/fragment_search.xml" value="0.3774703557312253" />
+        <entry key="..\:/Users/123/Desktop/LWTECH1/Bachelors/2022Spring/Capstone/RareFinds/app/src/main/res/layout/fragment_searched_item.xml" value="0.5" />
+        <entry key="..\:/Users/123/Desktop/LWTECH1/Bachelors/2022Spring/Capstone/RareFinds/app/src/main/res/layout/recycler_item_view.xml" value="0.5" />
+        <entry key="..\:/Users/123/Desktop/LWTECH1/Bachelors/2022Spring/Capstone/RareFinds/app/src/main/res/layout/searchrecycler.xml" value="0.21203703703703702" />
+        <entry key="..\:/Users/123/Desktop/LWTECH1/Bachelors/2022Spring/Capstone/RareFinds/app/src/main/res/menu/drawer_menu.xml" value="0.48020833333333335" />
+        <entry key="..\:/Users/123/Desktop/LWTECH1/Bachelors/2022Spring/Capstone/RareFinds/app/src/main/res/menu/fragment_search.xml" value="0.1527777777777778" />
         <entry key="..\:/Users/Bryan/AndroidStudioProjects/RareFinds/app/src/main/res/drawable-anydpi/ic_username_icon.xml" value="0.5475" />
-        <entry key="..\:/Users/Bryan/AndroidStudioProjects/RareFinds/app/src/main/res/drawable/collection_view_shape.xml" value="0.25" />
-        <entry key="..\:/Users/Bryan/AndroidStudioProjects/RareFinds/app/src/main/res/drawable/custom_ripple.xml" value="0.383" />
-        <entry key="..\:/Users/Bryan/AndroidStudioProjects/RareFinds/app/src/main/res/drawable/ic_baseline_add_photo_alternate.xml" value="0.4225" />
-        <entry key="..\:/Users/Bryan/AndroidStudioProjects/RareFinds/app/src/main/res/drawable/ic_baseline_star_24.xml" value="0.5475" />
-        <entry key="..\:/Users/Bryan/AndroidStudioProjects/RareFinds/app/src/main/res/drawable/ic_baseline_star_outline_24.xml" value="0.5475" />
-        <entry key="..\:/Users/Bryan/AndroidStudioProjects/RareFinds/app/src/main/res/drawable/ic_empty_dimond.xml" value="0.5475" />
         <entry key="..\:/Users/Bryan/AndroidStudioProjects/RareFinds/app/src/main/res/drawable/ic_launcher_background.xml" value="0.5475" />
         <entry key="..\:/Users/Bryan/AndroidStudioProjects/RareFinds/app/src/main/res/drawable/ic_password_icon.xml" value="0.5475" />
-        <entry key="..\:/Users/Bryan/AndroidStudioProjects/RareFinds/app/src/main/res/drawable/ic_username_icon.xml" value="0.4225" />
         <entry key="..\:/Users/Bryan/AndroidStudioProjects/RareFinds/app/src/main/res/layout-w1240dp/content_scrolling.xml" value="0.23828647925033467" />
         <entry key="..\:/Users/Bryan/AndroidStudioProjects/RareFinds/app/src/main/res/layout-w936dp/content_scrolling.xml" value="0.278125" />
         <entry key="..\:/Users/Bryan/AndroidStudioProjects/RareFinds/app/src/main/res/layout/activity_adding_category.xml" value="0.5541666666666667" />
         <entry key="..\:/Users/Bryan/AndroidStudioProjects/RareFinds/app/src/main/res/layout/activity_collection.xml" value="0.31354166666666666" />
         <entry key="..\:/Users/Bryan/AndroidStudioProjects/RareFinds/app/src/main/res/layout/activity_library.xml" value="0.33" />
         <entry key="..\:/Users/Bryan/AndroidStudioProjects/RareFinds/app/src/main/res/layout/activity_library_view.xml" value="0.37083333333333335" />
-        <entry key="..\:/Users/Bryan/AndroidStudioProjects/RareFinds/app/src/main/res/layout/activity_login.xml" value="0.33" />
-        <entry key="..\:/Users/Bryan/AndroidStudioProjects/RareFinds/app/src/main/res/layout/activity_main.xml" value="0.25" />
-        <entry key="..\:/Users/Bryan/AndroidStudioProjects/RareFinds/app/src/main/res/layout/activity_signup.xml" value="0.33" />
+        <entry key="..\:/Users/Bryan/AndroidStudioProjects/RareFinds/app/src/main/res/layout/activity_login.xml" value="0.5" />
+        <entry key="..\:/Users/Bryan/AndroidStudioProjects/RareFinds/app/src/main/res/layout/activity_main.xml" value="0.1" />
+        <entry key="..\:/Users/Bryan/AndroidStudioProjects/RareFinds/app/src/main/res/layout/activity_signup.xml" value="0.5" />
         <entry key="..\:/Users/Bryan/AndroidStudioProjects/RareFinds/app/src/main/res/layout/category_view.xml" value="0.3338541666666667" />
-        <entry key="..\:/Users/Bryan/AndroidStudioProjects/RareFinds/app/src/main/res/layout/comment_item_view.xml" value="0.4855072463768116" />
-        <entry key="..\:/Users/Bryan/AndroidStudioProjects/RareFinds/app/src/main/res/layout/comment_view.xml" value="0.5" />
         <entry key="..\:/Users/Bryan/AndroidStudioProjects/RareFinds/app/src/main/res/layout/content_scrolling.xml" value="0.37083333333333335" />
         <entry key="..\:/Users/Bryan/AndroidStudioProjects/RareFinds/app/src/main/res/layout/dropdown_item.xml" value="0.5541666666666667" />
-        <entry key="..\:/Users/Bryan/AndroidStudioProjects/RareFinds/app/src/main/res/layout/fragment_add_comment.xml" value="0.5" />
-        <entry key="..\:/Users/Bryan/AndroidStudioProjects/RareFinds/app/src/main/res/layout/fragment_adding_collection.xml" value="0.33" />
-        <entry key="..\:/Users/Bryan/AndroidStudioProjects/RareFinds/app/src/main/res/layout/fragment_adding_comment.xml" value="0.4855072463768116" />
-        <entry key="..\:/Users/Bryan/AndroidStudioProjects/RareFinds/app/src/main/res/layout/fragment_adding_library.xml" value="0.25" />
+        <entry key="..\:/Users/Bryan/AndroidStudioProjects/RareFinds/app/src/main/res/layout/fragment_adding_collection.xml" value="0.67" />
+        <entry key="..\:/Users/Bryan/AndroidStudioProjects/RareFinds/app/src/main/res/layout/fragment_adding_library.xml" value="0.10097087378640776" />
         <entry key="..\:/Users/Bryan/AndroidStudioProjects/RareFinds/app/src/main/res/layout/fragment_collection.xml" value="0.33" />
         <entry key="..\:/Users/Bryan/AndroidStudioProjects/RareFinds/app/src/main/res/layout/fragment_library.xml" value="0.33" />
-        <entry key="..\:/Users/Bryan/AndroidStudioProjects/RareFinds/app/src/main/res/layout/fragment_library_view.xml" value="0.67" />
         <entry key="..\:/Users/Bryan/AndroidStudioProjects/RareFinds/app/src/main/res/layout/fragment_search.xml" value="0.48731884057971014" />
-        <entry key="..\:/Users/Bryan/AndroidStudioProjects/RareFinds/app/src/main/res/layout/fragment_up_dating_user.xml" value="0.4166666666666667" />
-        <entry key="..\:/Users/Bryan/AndroidStudioProjects/RareFinds/app/src/main/res/layout/fragment_updata_collection.xml" value="0.5541666666666667" />
-        <entry key="..\:/Users/Bryan/AndroidStudioProjects/RareFinds/app/src/main/res/layout/fragment_update_collection.xml" value="0.4855072463768116" />
-        <entry key="..\:/Users/Bryan/AndroidStudioProjects/RareFinds/app/src/main/res/layout/fragment_update_library.xml" value="0.33" />
-        <entry key="..\:/Users/Bryan/AndroidStudioProjects/RareFinds/app/src/main/res/layout/fragment_update_user.xml" value="0.36770833333333336" />
         <entry key="..\:/Users/Bryan/AndroidStudioProjects/RareFinds/app/src/main/res/layout/library_cell.xml" value="0.33" />
         <entry key="..\:/Users/Bryan/AndroidStudioProjects/RareFinds/app/src/main/res/layout/nav_header_main.xml" value="0.5" />
-        <entry key="..\:/Users/Bryan/AndroidStudioProjects/RareFinds/app/src/main/res/layout/recycler_item_view.xml" value="0.4239583333333333" />
-        <entry key="..\:/Users/Bryan/AndroidStudioProjects/RareFinds/app/src/main/res/layout/recycler_view_item.xml" value="0.3828125" />
-        <entry key="..\:/Users/Bryan/AndroidStudioProjects/RareFinds/app/src/main/res/layout/recycler_view_item_1.xml" value="0.3828125" />
-        <entry key="..\:/Users/Bryan/AndroidStudioProjects/RareFinds/app/src/main/res/layout/searchrecycler.xml" value="0.23052536231884058" />
         <entry key="..\:/Users/Bryan/AndroidStudioProjects/RareFinds/app/src/main/res/menu/drawer_menu.xml" value="0.5541666666666667" />
-        <entry key="..\:/Users/Bryan/AndroidStudioProjects/RareFinds/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.4225" />
-        <entry key="..\:/Users/Bryan/AndroidStudioProjects/RareFinds/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" value="0.4225" />
         <entry key="..\:/Users/Bryan/AndroidStudioProjects/Rare_Finds/app/src/main/res/layout/activity_adding_category.xml" value="0.5" />
         <entry key="..\:/Users/Bryan/AndroidStudioProjects/Rare_Finds/app/src/main/res/layout/activity_collection.xml" value="0.1" />
         <entry key="..\:/Users/Bryan/AndroidStudioProjects/Rare_Finds/app/src/main/res/layout/activity_library.xml" value="0.1" />
@@ -58,7 +46,7 @@
       </map>
     </option>
   </component>
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="Android Studio default JDK" project-jdk-type="JavaSDK">
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="11" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/build/classes" />
   </component>
   <component name="ProjectType">
