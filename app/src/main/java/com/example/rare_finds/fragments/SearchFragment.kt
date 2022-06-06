@@ -37,7 +37,7 @@ class SearchFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        (activity as AppCompatActivity).supportActionBar?.title = getString(R.string.collection_name)
+        (activity as AppCompatActivity).supportActionBar?.title = getString(R.string.search_frag)
         view.apply{
             val recyclerView = view.findViewById<RecyclerView>(R.id.searchView)
             adapter = SearchRecyclerAdapter("Mario")
