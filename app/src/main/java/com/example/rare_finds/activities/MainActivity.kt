@@ -14,12 +14,11 @@ import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
 import com.example.rare_finds.R
 import edu.practice.utils.shared.com.example.rare_finds.controllers.UpdatingUserFragment
-import com.example.rare_finds.api.igdb.request.IGDBWrapper.apiJsonRequest
 import com.example.rare_finds.login.LoginActivity
 import com.google.android.material.navigation.NavigationView
 import edu.practice.utils.shared.com.example.rare_finds.fragments.CollectionFragment
 import edu.practice.utils.shared.com.example.rare_finds.fragments.SearchFragment
-import edu.practice.utils.shared.com.example.rare_finds.sqlconnection.BlobConnection
+import com.example.rare_finds.connection.BlobConnection
 import kotlinx.coroutines.*
 
 class MainActivity : AppCompatActivity() {

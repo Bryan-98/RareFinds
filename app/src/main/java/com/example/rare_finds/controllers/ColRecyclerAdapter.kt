@@ -1,7 +1,5 @@
 package edu.practice.utils.shared.com.example.rare_finds.controllers
 
-import android.icu.number.NumberFormatter.with
-import android.icu.number.NumberRangeFormatter.with
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,8 +10,8 @@ import com.squareup.picasso.MemoryPolicy
 import com.squareup.picasso.NetworkPolicy
 import com.squareup.picasso.Picasso
 import edu.practice.utils.shared.com.example.rare_finds.models.Collection
-import edu.practice.utils.shared.com.example.rare_finds.sqlconnection.ConnectionHelper
-import edu.practice.utils.shared.com.example.rare_finds.sqlconnection.DatabaseHelper
+import com.example.rare_finds.connection.ConnectionHelper
+import com.example.rare_finds.connection.DatabaseHelper
 import java.io.Serializable
 
 class ColRecyclerAdapter(userID : Int): RecyclerView.Adapter<ColRecyclerAdapter.ViewHolder>(), Filterable{

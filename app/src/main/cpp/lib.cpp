@@ -34,3 +34,17 @@ Java_edu_practice_utils_shared_Keys_blob(JNIEnv *env, jobject thiz) {
     std::string pass = "DefaultEndpointsProtocol=https;AccountName=rarefindsstorage;AccountKey=QepH2XJUlT29kpy+eb6UZCgf5UlkYJha+SnM70nyBFlXrLRYiPFRPB6Y8TtCxPq+FtnimP9KKSNubFj9gSfUBw==;EndpointSuffix=core.windows.net";
     return env->NewStringUTF(pass.c_str());
 }
+
+extern "C"
+JNIEXPORT jstring JNICALL
+Java_edu_practice_utils_shared_Keys_clientId(JNIEnv *env, jobject thiz) {
+    std::string pass = "pzqarw3s181p3re13e0m4rftc2xphl";
+    return env->NewStringUTF(pass.c_str());
+}
+
+extern "C"
+JNIEXPORT jstring JNICALL
+Java_edu_practice_utils_shared_Keys_token(JNIEnv *env, jobject thiz) {
+    std::string pass = "dmrud9qwnvs3mj693z41n6m6xawzzd";
+    return env->NewStringUTF(pass.c_str());
+}

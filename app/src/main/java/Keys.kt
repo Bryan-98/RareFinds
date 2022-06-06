@@ -11,4 +11,6 @@ object Keys {
     external fun user(): String
     external fun pass(): String
     external fun blob(): String
+    external fun clientId(): String
+    external fun token(): String
 }

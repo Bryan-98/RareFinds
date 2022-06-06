@@ -27,9 +27,9 @@ import com.squareup.picasso.NetworkPolicy
 import com.squareup.picasso.Picasso
 import edu.practice.utils.shared.com.example.rare_finds.fragments.LibraryFragment
 import edu.practice.utils.shared.com.example.rare_finds.models.Library
-import edu.practice.utils.shared.com.example.rare_finds.sqlconnection.BlobConnection
-import edu.practice.utils.shared.com.example.rare_finds.sqlconnection.ConnectionHelper
-import edu.practice.utils.shared.com.example.rare_finds.sqlconnection.DatabaseHelper
+import com.example.rare_finds.connection.BlobConnection
+import com.example.rare_finds.connection.ConnectionHelper
+import com.example.rare_finds.connection.DatabaseHelper
 import kotlinx.coroutines.*
 import java.io.Serializable
 import kotlin.properties.Delegates

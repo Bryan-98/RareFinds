@@ -11,8 +11,8 @@ import com.squareup.picasso.MemoryPolicy
 import com.squareup.picasso.NetworkPolicy
 import com.squareup.picasso.Picasso
 import edu.practice.utils.shared.com.example.rare_finds.models.Comment
-import edu.practice.utils.shared.com.example.rare_finds.sqlconnection.ConnectionHelper
-import edu.practice.utils.shared.com.example.rare_finds.sqlconnection.DatabaseHelper
+import com.example.rare_finds.connection.ConnectionHelper
+import com.example.rare_finds.connection.DatabaseHelper
 
 class ComRecyclerAdapter(libName: String) : RecyclerView.Adapter<ComRecyclerAdapter.ViewHolder>() {
 

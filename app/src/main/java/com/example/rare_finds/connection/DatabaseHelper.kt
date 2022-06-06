@@ -1,4 +1,4 @@
-package edu.practice.utils.shared.com.example.rare_finds.sqlconnection
+package com.example.rare_finds.connection
 
 import edu.practice.utils.shared.com.example.rare_finds.models.Collection
 import edu.practice.utils.shared.com.example.rare_finds.models.Comment

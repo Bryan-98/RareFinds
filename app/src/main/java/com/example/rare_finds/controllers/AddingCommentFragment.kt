@@ -17,8 +17,8 @@ import androidx.fragment.app.Fragment
 import com.example.rare_finds.R
 import com.example.rare_finds.fragments.LibraryViewFragment
 import com.google.android.material.textfield.TextInputLayout
-import edu.practice.utils.shared.com.example.rare_finds.sqlconnection.ConnectionHelper
-import edu.practice.utils.shared.com.example.rare_finds.sqlconnection.DatabaseHelper
+import com.example.rare_finds.connection.ConnectionHelper
+import com.example.rare_finds.connection.DatabaseHelper
 import kotlinx.coroutines.*
 import java.io.Serializable
 import java.time.LocalDateTime

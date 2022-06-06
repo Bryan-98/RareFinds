@@ -24,9 +24,9 @@ import androidx.annotation.RequiresApi
 import androidx.appcompat.app.ActionBar
 import com.example.rare_finds.R
 import com.google.android.material.textfield.TextInputLayout
-import edu.practice.utils.shared.com.example.rare_finds.sqlconnection.BlobConnection
-import edu.practice.utils.shared.com.example.rare_finds.sqlconnection.ConnectionHelper
-import edu.practice.utils.shared.com.example.rare_finds.sqlconnection.DatabaseHelper
+import com.example.rare_finds.connection.BlobConnection
+import com.example.rare_finds.connection.ConnectionHelper
+import com.example.rare_finds.connection.DatabaseHelper
 import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
