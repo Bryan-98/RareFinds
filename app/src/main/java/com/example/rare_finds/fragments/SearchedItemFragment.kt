@@ -57,11 +57,11 @@ class SearchedItemFragment : DialogFragment() {
         arguments?.let {
             itemInfo = it.getSerializable(ARG_PARAM1)
             val item = itemInfo as Search
-            name = item.searchName
-            des = item.colDescription
+            name = item.searchName.replace("'", "")
+            des = item.colDescription.replace("'", "")
             year = item.yearRelease
             price = 0
-            publisher = item.searchPublisher
+            publisher = item.searchPublisher.replace("'", "")
             genre = item.genre
             imageUrl = item.imageUrl
             itemId = item.searchId

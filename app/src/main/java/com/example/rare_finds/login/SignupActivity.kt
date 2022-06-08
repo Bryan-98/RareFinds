@@ -157,10 +157,10 @@ class SignupActivity : AppCompatActivity() {
             til.error = "Enter a username"
             count++
         }
-        if(name.isNotBlank() && name.length > 4){
+        if(name.isNotBlank() && name.length < 4){
             til = findViewById(R.id.signUserName)
             til.isErrorEnabled = true
-            til.error = "Username needs to   be 4 characters long"
+            til.error = "Username needs to be 4 characters long"
             count++
         }
         if (email.isBlank()) {
@@ -181,7 +181,7 @@ class SignupActivity : AppCompatActivity() {
             til.error = "Enter a Password"
             count++
         }
-        if(pass.isNotBlank() && pass.length > 8){
+        if(pass.isNotBlank() && pass.length < 8){
             til = findViewById(R.id.signUserPass)
             til.isErrorEnabled = true
             til.error = "Password needs to be 8 characters long"
