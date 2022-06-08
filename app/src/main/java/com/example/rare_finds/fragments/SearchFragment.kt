@@ -53,14 +53,9 @@ class SearchFragment : Fragment() {
                     val srchdItemFragment = SearchedItemFragment()
                     srchdItemFragment.arguments = itemBundle
                     act.supportFragmentManager.beginTransaction().setCustomAnimations(R.anim.from_right, R.anim.from_left, android.R.anim.slide_in_left, android.R.anim.slide_out_right)
-                        .replace(R.id.fragmentContainerView,srchdItemFragment).addToBackStack(null)
+                        .replace(R.id.fragmentContainerView,srchdItemFragment)
                         .commit()
 
-//                    val libFragment = LibraryFragment()
-//
-//                    act.supportFragmentManager.beginTransaction().setCustomAnimations(R.anim.from_right, R.anim.from_left, android.R.anim.slide_in_left, android.R.anim.slide_out_right)
-//                        .replace(R.id.fragmentContainerView,libFragment).addToBackStack(null)
-//                        .commit()
                 }
                 override fun onLongItemClick(item: Serializable): Boolean{
                     return true

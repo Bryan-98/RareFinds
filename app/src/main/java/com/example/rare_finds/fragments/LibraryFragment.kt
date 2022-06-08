@@ -11,9 +11,13 @@ import android.widget.ArrayAdapter
 import android.widget.SearchView
 import android.widget.Spinner
 import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.transaction
+import androidx.lifecycle.Lifecycle
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.rare_finds.R
+import com.example.rare_finds.connection.ConnectionHelper
+import com.example.rare_finds.connection.DatabaseHelper
 import com.example.rare_finds.controllers.UpdateLibraryFragment
 import com.example.rare_finds.fragments.LibraryViewFragment
 import com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -29,16 +33,16 @@ class LibraryFragment : Fragment() {
     private lateinit var adapter : LibRecyclerAdapter
     private var colId by Delegates.notNull<Int>()
     private lateinit var searchView: SearchView
+    private val con = ConnectionHelper().dbConn()
+    private val db = con?.let { DatabaseHelper(it) }
+    private val genres : ArrayList<String> = ArrayList()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         colId = loadColData()
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_library, container, false)
     }
 
@@ -56,6 +60,7 @@ class LibraryFragment : Fragment() {
         adapter = LibRecyclerAdapter(colId)
         layoutManager = LinearLayoutManager(this.context)
         recyclerView.layoutManager = layoutManager
+
         val act = view.context as AppCompatActivity
         adapter.setOnItemClickListener(object: LibRecyclerAdapter.OnItemClickListener {
             override fun onItemClick(item: Serializable) {
@@ -70,8 +75,8 @@ class LibraryFragment : Fragment() {
                     .replace(R.id.fragmentContainerView,libViewFragment).addToBackStack(null)
                     .commit()
             }
-            override fun onLongItemClick(item: Serializable): Boolean{
 
+            override fun onLongItemClick(item: Serializable): Boolean{
                 val libBundle = Bundle()
                 val libId = item as Library
                 libBundle.putSerializable("libraryInfo", libId)
@@ -84,6 +89,7 @@ class LibraryFragment : Fragment() {
                     .commit()
                 return true
             }
+
         })
         recyclerView.adapter = adapter
 
@@ -100,7 +106,14 @@ class LibraryFragment : Fragment() {
             }
         })
 
-        val genres = resources.getStringArray(R.array.lib_filter)
+        genres.add("Any")
+        val libItems = db?.fillLibraryList(colId)
+        libItems?.forEach{
+            if(!genres.contains(it.libGenre)){
+                genres.add(it.libGenre)
+            }
+        }
+
         val spinner = view.findViewById<Spinner>(R.id.spinner2)
         this.context?.let {
             ArrayAdapter(it, R.layout.dropdown_item,genres).also { ap ->

@@ -44,7 +44,6 @@ class SearchedItemFragment : DialogFragment() {
     private lateinit var collectionName: String
     private var com = arrayListOf<Comment>()
     private var col = arrayListOf<Collection>()
-    private var lib = arrayListOf<Library>()
     private val libEntry = "LibName,LibDesc,LibYear, LibPrice, LibPublisher, LibGenre, ImageUrl, CollId"
 
     private var itemId by Delegates.notNull<Long>()
@@ -146,6 +145,7 @@ class SearchedItemFragment : DialogFragment() {
         recyclerView.layoutManager = layoutManager
         recyclerView.adapter = adapter
     }
+
     private fun loadColData():Int{
         val sp = this.activity?.getSharedPreferences("colInfo", Context.MODE_PRIVATE)
         if (sp != null) {
@@ -153,6 +153,7 @@ class SearchedItemFragment : DialogFragment() {
         }
         return 0
     }
+
     private fun loadUserData():Int{
         val sp = this.activity?.getSharedPreferences("userInfo", Context.MODE_PRIVATE)
         if (sp != null) {
@@ -160,6 +161,7 @@ class SearchedItemFragment : DialogFragment() {
         }
         return 0
     }
+
     private fun replaceFragment(fragment: Fragment){
 
         val fragmentManager = (activity as AppCompatActivity).supportFragmentManager
@@ -167,4 +169,5 @@ class SearchedItemFragment : DialogFragment() {
         fragmentTrans.replace(R.id.fragmentContainerView,fragment)
         fragmentTrans.commit()
     }
+
 }
